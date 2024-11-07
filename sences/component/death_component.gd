@@ -12,7 +12,6 @@ func on_died():
 		return
 	
 	var spawn_position = owner.global_position
-	print(owner.name)	
 	var entities = get_tree().get_first_node_in_group("entites_layer")	
 	get_parent().remove_child(self)
 	entities.add_child(self)

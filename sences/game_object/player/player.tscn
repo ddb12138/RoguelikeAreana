@@ -162,26 +162,21 @@ texture = ExtResource("1_uhrpy")
 offset = Vector2(0, -8)
 
 [node name="PickupArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
-visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_jhe3y")
 
 [node name="CollisonArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisonArea2D"]
-visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_xdx33")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_vj4d1")

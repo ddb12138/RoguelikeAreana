@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cvtud0jybnrm1"]
+
+[ext_resource type="Script" path="res://sences/ability/huge_sword_ability_controller/huge_sword_ability_controller.gd" id="1_t8hrg"]
+[ext_resource type="PackedScene" uid="uid://bd0poptqokg4r" path="res://sences/ability/huge_sword_ability/huge_sword_ability.tscn" id="2_4wryy"]
+
+[node name="hugeSwordAbilityController" type="Node"]
+script = ExtResource("1_t8hrg")
+huge_sword_ability_scene = ExtResource("2_4wryy")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true

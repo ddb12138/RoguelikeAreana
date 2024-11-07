@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://duadwljf6e3xs"]
+
+[ext_resource type="PackedScene" uid="uid://cvtud0jybnrm1" path="res://sences/ability/huge_sword_ability_controller/huge_sword_ability_controller.tscn" id="1_r0waj"]
+[ext_resource type="Script" path="res://resource/upgrades/ability.gd" id="2_n6lgh"]
+
+[resource]
+script = ExtResource("2_n6lgh")
+ability_controller_scene = ExtResource("1_r0waj")
+id = "巨剑"
+max_quantity = 1
+name = "巨剑"
+description = "定时产生伤害高的巨剑"
