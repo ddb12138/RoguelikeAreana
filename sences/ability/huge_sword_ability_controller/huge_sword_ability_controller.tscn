@@ -8,4 +8,5 @@ script = ExtResource("1_t8hrg")
 huge_sword_ability_scene = ExtResource("2_4wryy")
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 8.0
 autostart = true

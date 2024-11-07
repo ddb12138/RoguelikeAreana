@@ -11,12 +11,10 @@ func _input(event: InputEvent) -> void:
 	var st := event as InputEventScreenTouch
 	if st:
 		if st.pressed and finger_index == -1:
-			print("Touch pressed at:", st.position)
 			var global_pos := st.position * get_canvas_transform()
-			print("Global position:", global_pos)
 			var local_pos := global_pos * get_global_transform()
-			print("Local position:", local_pos)
 			var rect := Rect2(Vector2.ZERO, texture_normal.get_size())
+			rect = enlarge_rect(rect, 1.20)
 			print("size:", texture_normal.get_size())
 			if rect.has_point(local_pos):
 				# 按下
@@ -25,7 +23,6 @@ func _input(event: InputEvent) -> void:
 				print("Finger index set to:", finger_index)
 		elif not st.pressed and st.index == finger_index:
 			# 松开
-			print("Touch released, resetting finger index")
 			Input.action_release("move_left")
 			Input.action_release("move_right")
 			Input.action_release("move_up")
@@ -62,3 +59,15 @@ func _input(event: InputEvent) -> void:
 			Input.action_press("move_up", -movement.y)
 
 		
+func enlarge_rect(rect: Rect2, scale_factor: float) -> Rect2:
+	# 计算原始矩形的中心点
+	var center := rect.position + rect.size / 2
+	
+	# 计算新的大小
+	var new_size := rect.size * scale_factor
+	
+	# 计算新的位置，使中心点保持不变
+	var new_position := center - new_size / 2
+	
+	# 返回新的 Rect2
+	return Rect2(new_position, new_size)
