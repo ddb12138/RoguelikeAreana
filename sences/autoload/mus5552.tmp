@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://ewvu6detsgpi"]
+
+[ext_resource type="AudioStream" uid="uid://38ckjhi1ff40" path="res://asserts/audio/My Giant Bunny Friend.mp3" id="1_jgxrk"]
+[ext_resource type="Script" path="res://sences/autoload/music_player.gd" id="2_gibvl"]
+
+[node name="MusicPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_jgxrk")
+volume_db = -5.0
+autoplay = true
+script = ExtResource("2_gibvl")
+
+[node name="Timer" type="Timer" parent="."]

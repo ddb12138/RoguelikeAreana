@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://c0gs4r2bo2lad"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_ba58f"]
+
+[resource]
+script = ExtResource("1_ba58f")
+id = "铁毡:伤害升级"
+max_quantity = 5
+name = "铁毡:伤害升级"
+description = "铁毡:伤害升级"

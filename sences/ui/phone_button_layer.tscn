@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://b5icgj2dp37ue"]
+
+[ext_resource type="Texture2D" uid="uid://cgo6ajvgr3bhj" path="res://asserts/arrow/arrow_e.png" id="1_6l3pk"]
+[ext_resource type="Texture2D" uid="uid://cmdy8bgdlwprl" path="res://asserts/arrow/arrow_w.png" id="2_0kqax"]
+[ext_resource type="Texture2D" uid="uid://dkdlem8i3tf7" path="res://asserts/arrow/arrow_n.png" id="3_j5las"]
+[ext_resource type="Texture2D" uid="uid://cwpu3cx7npwti" path="res://asserts/arrow/arrow_s.png" id="4_p2luw"]
+
+[node name="PhoneButtonLayer" type="CanvasLayer"]
+
+[node name="RightButton" type="TouchScreenButton" parent="."]
+position = Vector2(107, 256)
+texture_normal = ExtResource("1_6l3pk")
+action = "move_right"
+
+[node name="LeftButton" type="TouchScreenButton" parent="."]
+position = Vector2(27, 255)
+texture_normal = ExtResource("2_0kqax")
+action = "move_left"
+
+[node name="UpButton" type="TouchScreenButton" parent="."]
+position = Vector2(66, 214)
+texture_normal = ExtResource("3_j5las")
+action = "move_up"
+
+[node name="DownButton" type="TouchScreenButton" parent="."]
+position = Vector2(67, 290)
+texture_normal = ExtResource("4_p2luw")
+action = "move_down"

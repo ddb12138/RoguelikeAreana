@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MetaUpgrade" load_steps=2 format=3 uid="uid://niaw72wkkxwf"]
+
+[ext_resource type="Script" path="res://resource/meta_upgrades/meta_progression.gd" id="1_0d6io"]
+
+[resource]
+script = ExtResource("1_0d6io")
+id = "经验获取"
+max_quantity = 5
+experience_cost = 100
+title = "经验获取"
+description = "经验获取"

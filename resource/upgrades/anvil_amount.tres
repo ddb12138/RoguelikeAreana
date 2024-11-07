@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://lpyxsg4rg0k8"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_4coex"]
+
+[resource]
+script = ExtResource("1_4coex")
+id = "铁毡:数量升级"
+max_quantity = 5
+name = "铁毡:数量升级"
+description = "铁毡:数量升级"

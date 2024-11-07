@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MetaUpgrade" load_steps=2 format=3 uid="uid://dnacow5ct5m0k"]
+
+[ext_resource type="Script" path="res://resource/meta_upgrades/meta_progression.gd" id="1_4d4lq"]
+
+[resource]
+script = ExtResource("1_4d4lq")
+id = "生命回复"
+max_quantity = 3
+experience_cost = 200
+title = "生命回复"
+description = "缓慢生命回复"

@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://brtml66mfnw5"]
+
+[ext_resource type="Texture2D" uid="uid://bml4ga2x001ag" path="res://asserts/ui/HUD.png" id="1_7r63c"]
+[ext_resource type="Script" path="res://sences/ui/touch_screen_button.gd" id="2_qfxj1"]
+[ext_resource type="Texture2D" uid="uid://beuq4jp5k4lds" path="res://asserts/ui/tilemap_packed.png" id="3_en5ff"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c3lx3"]
+atlas = ExtResource("1_7r63c")
+region = Rect2(373, 6, 53, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qu1co"]
+atlas = ExtResource("3_en5ff")
+region = Rect2(352, 96, 64, 64)
+
+[node name="VirtualJoypad" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Stick" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 96.0
+offset_top = -80.0
+offset_right = 96.0
+offset_bottom = -80.0
+grow_vertical = 0
+
+[node name="TouchScreenButton" type="TouchScreenButton" parent="Stick"]
+position = Vector2(-26, -26)
+texture_normal = SubResource("AtlasTexture_c3lx3")
+script = ExtResource("2_qfxj1")
+
+[node name="Sprite2D" type="Sprite2D" parent="Stick"]
+modulate = Color(1, 1, 1, 0.290196)
+texture_filter = 1
+scale = Vector2(1.1293, 1.1293)
+texture = SubResource("AtlasTexture_qu1co")

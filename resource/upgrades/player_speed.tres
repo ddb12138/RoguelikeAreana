@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://uw6ucp5rg0x8"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_2krh3"]
+
+[resource]
+script = ExtResource("1_2krh3")
+id = "玩家移速"
+max_quantity = 2
+name = "移速升级"
+description = "提升10%玩家移速"

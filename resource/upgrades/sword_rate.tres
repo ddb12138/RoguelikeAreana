@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://1x4dwvcott3o"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_llobw"]
+
+[resource]
+script = ExtResource("1_llobw")
+id = "剑:攻速升级"
+max_quantity = 5
+name = "剑:攻速升级"
+description = "剑:攻速升级"

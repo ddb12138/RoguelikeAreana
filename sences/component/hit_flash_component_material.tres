@@ -1,0 +1,8 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://cka2ilw3et0oa"]
+
+[ext_resource type="Shader" path="res://sences/component/hit_flash_component.gdshader" id="1_iq40w"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_iq40w")
+shader_parameter/lerp_percent = 0.0

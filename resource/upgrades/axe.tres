@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="Ability" load_steps=3 format=3 uid="uid://ce0oqo5jbtm7p"]
+
+[ext_resource type="PackedScene" uid="uid://brqjedalhm8cv" path="res://sences/ability/axe_ability_controller/axe_ability_controller.tscn" id="1_afbp4"]
+[ext_resource type="Script" path="res://resource/upgrades/ability.gd" id="2_hynqm"]
+
+[resource]
+script = ExtResource("2_hynqm")
+ability_controller_scene = ExtResource("1_afbp4")
+id = "斧头"
+max_quantity = 1
+name = "axe"
+description = "axe ability"
