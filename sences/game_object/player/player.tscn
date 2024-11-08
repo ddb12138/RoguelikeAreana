@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bj8juk7rytyqx"]
+[gd_scene load_steps=22 format=3 uid="uid://bj8juk7rytyqx"]
 
 [ext_resource type="Script" path="res://sences/game_object/player/player.gd" id="1_6sswo"]
 [ext_resource type="Texture2D" uid="uid://cudhur8y6db75" path="res://sences/game_object/player/player.png" id="1_uhrpy"]
@@ -11,6 +11,7 @@
 [ext_resource type="AudioStream" uid="uid://dfetxc5piaui4" path="res://asserts/audio/impactMining_002.ogg" id="8_suvim"]
 [ext_resource type="AudioStream" uid="uid://x3xl8wvv5u0v" path="res://asserts/audio/impactMining_003.ogg" id="9_02uk2"]
 [ext_resource type="AudioStream" uid="uid://b81s7t3cij8va" path="res://asserts/audio/impactMining_004.ogg" id="10_cwwb3"]
+[ext_resource type="Shader" path="res://sences/game_object/player/player.gdshader" id="11_exk5x"]
 
 [sub_resource type="Animation" id="Animation_egxv1"]
 length = 0.001
@@ -107,6 +108,11 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0.247059, 0.14902, 0.192157, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4o3pn"]
+shader = ExtResource("11_exk5x")
+shader_parameter/outline_color = Color(2.162, 0.943, 0.12, 1)
+shader_parameter/outline_width = 1.45
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_jhe3y"]
 radius = 32.0
 
@@ -115,6 +121,11 @@ radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vj4d1"]
 radius = 5.0
+
+[sub_resource type="Environment" id="Environment_3nlko"]
+background_mode = 3
+glow_enabled = true
+glow_strength = 0.99
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -143,6 +154,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+visible = false
 custom_minimum_size = Vector2(32, 6)
 offset_left = -16.0
 offset_top = -24.0
@@ -158,25 +170,34 @@ show_percentage = false
 scale = Vector2(-1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
+material = SubResource("ShaderMaterial_4o3pn")
 texture = ExtResource("1_uhrpy")
-offset = Vector2(0, -8)
+offset = Vector2(-0.123276, -7.84535)
 
 [node name="PickupArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 16
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea2D"]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_jhe3y")
 
 [node name="CollisonArea2D" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CollisonArea2D"]
+visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_xdx33")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_vj4d1")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3nlko")
