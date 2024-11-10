@@ -109,9 +109,10 @@ border_width_bottom = 2
 border_color = Color(0.247059, 0.14902, 0.192157, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4o3pn"]
+resource_local_to_scene = true
 shader = ExtResource("11_exk5x")
-shader_parameter/outline_color = Color(0.967465, 0, 0.153675, 1)
-shader_parameter/outline_width = 1.45
+shader_parameter/outline_color = Color(1, 0.843137, 0, 1)
+shader_parameter/outline_width = 1.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jhe3y"]
 radius = 32.0
@@ -149,7 +150,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-visible = false
 custom_minimum_size = Vector2(32, 6)
 offset_left = -16.0
 offset_top = -24.0
@@ -170,7 +170,6 @@ texture = ExtResource("1_uhrpy")
 offset = Vector2(-0.123276, -7.84535)
 
 [node name="PickupArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 16
 collision_mask = 0
 
@@ -180,7 +179,6 @@ position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_jhe3y")
 
 [node name="CollisonArea2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 8
 

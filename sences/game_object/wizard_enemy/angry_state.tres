@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://day2g7n5t5wqo"]
+
+[ext_resource type="Shader" path="res://sences/game_object/player/player.gdshader" id="1_joc3p"]
+
+[resource]
+resource_local_to_scene = true
+shader = ExtResource("1_joc3p")
+shader_parameter/outline_color = Color(0.984314, 0.14902, 0.192157, 1)
+shader_parameter/outline_width = 1.0
