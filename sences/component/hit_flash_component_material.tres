@@ -6,3 +6,4 @@
 resource_local_to_scene = true
 shader = ExtResource("1_iq40w")
 shader_parameter/lerp_percent = 0.0
+shader_parameter/outline_color = Color(0.996078, 0.156863, 0.431373, 0)

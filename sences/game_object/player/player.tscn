@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bj8juk7rytyqx"]
+[gd_scene load_steps=21 format=3 uid="uid://bj8juk7rytyqx"]
 
 [ext_resource type="Script" path="res://sences/game_object/player/player.gd" id="1_6sswo"]
 [ext_resource type="Texture2D" uid="uid://cudhur8y6db75" path="res://sences/game_object/player/player.png" id="1_uhrpy"]
@@ -110,7 +110,7 @@ border_color = Color(0.247059, 0.14902, 0.192157, 1)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4o3pn"]
 shader = ExtResource("11_exk5x")
-shader_parameter/outline_color = Color(2.162, 0.943, 0.12, 1)
+shader_parameter/outline_color = Color(0.967465, 0, 0.153675, 1)
 shader_parameter/outline_width = 1.45
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jhe3y"]
@@ -121,11 +121,6 @@ radius = 7.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vj4d1"]
 radius = 5.0
-
-[sub_resource type="Environment" id="Environment_3nlko"]
-background_mode = 3
-glow_enabled = true
-glow_strength = 0.99
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 motion_mode = 1
@@ -198,6 +193,3 @@ shape = SubResource("CircleShape2D_xdx33")
 visible = false
 position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_vj4d1")
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_3nlko")

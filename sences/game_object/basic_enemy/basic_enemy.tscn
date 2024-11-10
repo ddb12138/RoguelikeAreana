@@ -83,11 +83,13 @@ _data = {
 resource_local_to_scene = true
 shader = ExtResource("4_uhntb")
 shader_parameter/lerp_percent = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vubiw"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wgnit"]
 resource_local_to_scene = true
 shader = ExtResource("4_uhntb")
 shader_parameter/lerp_percent = 0.0
+shader_parameter/outline_color = Color(0.717647, 0.972549, 0.172549, 0.0941176)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cfcoy"]
 radius = 12.0
@@ -113,7 +115,7 @@ autoplay = "walk"
 material = SubResource("ShaderMaterial_b188x")
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
-hit_flash_material = SubResource("ShaderMaterial_vubiw")
+hit_flash_material = SubResource("ShaderMaterial_wgnit")
 
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_compoent") instance=ExtResource("3_p6dwi")]
 health_compoent = NodePath("../HealthComponent")
