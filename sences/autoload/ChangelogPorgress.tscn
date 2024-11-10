@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://law6wqmmioa1"]
+
+[ext_resource type="Script" path="res://sences/autoload/changelog_porgress.gd" id="1_wrqo1"]
+
+[node name="ChangelogPorgress" type="Node"]
+script = ExtResource("1_wrqo1")

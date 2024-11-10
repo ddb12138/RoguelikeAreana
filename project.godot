@@ -29,6 +29,7 @@ GameEvents="*res://sences/autoload/game_events.tscn"
 MusicPlayer="*res://sences/autoload/music_player.tscn"
 ScreenTransition="*res://sences/autoload/screen_transition.tscn"
 MetaProgression="*res://sences/autoload/meta_progression.tscn"
+ChangelogPorgress="*res://sences/autoload/ChangelogPorgress.tscn"
 
 [debug]
 

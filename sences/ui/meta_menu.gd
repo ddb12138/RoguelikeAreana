@@ -17,4 +17,3 @@ func _ready() -> void:
 
 func on_back_pressed():
 	ScreenTransition.transition_to_scene("res://sences/ui/main_menu.tscn")
-	

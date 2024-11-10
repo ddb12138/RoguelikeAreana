@@ -7,6 +7,7 @@ func _ready() -> void:
 	%OptionsButton.pressed.connect(on_options_pressed)
 	%QuitButton.pressed.connect(on_quit_pressed)
 	%UpgradesButton.pressed.connect(on_upgrade_pressed)
+	%ChangeLogButton.pressed.connect(on_changelog_pressed)
 	
 func on_play_pressed():
 	ScreenTransition.transition()
@@ -27,6 +28,10 @@ func on_upgrade_pressed():
 
 func on_options_closed(options_instance:Node):
 	options_instance.queue_free()
+
+func on_changelog_pressed():
+	get_tree().change_scene_to_file("res://sences/ui/change_log_menu.tscn")
+
 
 func on_quit_pressed():
 	get_tree().quit()	

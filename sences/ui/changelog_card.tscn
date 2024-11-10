@@ -1,0 +1,79 @@
+[gd_scene load_steps=4 format=3 uid="uid://d4jictieu3lsi"]
+
+[ext_resource type="Theme" uid="uid://bfmrkvgk1qbt0" path="res://resource/theme/cn_theme.tres" id="1_25se0"]
+[ext_resource type="Script" path="res://sences/ui/changelog_card.gd" id="1_63ogh"]
+[ext_resource type="Texture2D" uid="uid://bogrfdqsevirl" path="res://asserts/ui/false.png" id="3_0uklq"]
+
+[node name="ChangelogCard" type="PanelContainer"]
+custom_minimum_size = Vector2(150, 200)
+offset_right = 154.0
+offset_bottom = 150.0
+pivot_offset = Vector2(75, 75)
+script = ExtResource("1_63ogh")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(130, 40)
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"AlternatePanelContainer"
+
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_colors/font_shadow_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_colors/font_outline_color = Color(0.14902, 0.168627, 0.266667, 1)
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 16
+text = "TitleName"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ContentLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("1_25se0")
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 16
+text = "Fixed Wizard Skill,make it disappear when it was under 50%health,and speed up"
+autowrap_mode = 2
+
+[node name="DateLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 10
+theme = ExtResource("1_25se0")
+theme_type_variation = &"BlueOutlineLabel"
+theme_override_font_sizes/font_size = 16
+text = "DATE: 11/20"
+horizontal_alignment = 2
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/VBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 56.0
+offset_top = -8.0
+offset_right = 72.0
+offset_bottom = 8.0
+size_flags_horizontal = 0
+texture = ExtResource("3_0uklq")

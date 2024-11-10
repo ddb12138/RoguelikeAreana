@@ -84,7 +84,7 @@ resource_local_to_scene = true
 shader = ExtResource("4_uhntb")
 shader_parameter/lerp_percent = 0.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_l4e61"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vubiw"]
 resource_local_to_scene = true
 shader = ExtResource("4_uhntb")
 shader_parameter/lerp_percent = 0.0
@@ -113,7 +113,7 @@ autoplay = "walk"
 material = SubResource("ShaderMaterial_b188x")
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
-hit_flash_material = SubResource("ShaderMaterial_l4e61")
+hit_flash_material = SubResource("ShaderMaterial_vubiw")
 
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_compoent") instance=ExtResource("3_p6dwi")]
 health_compoent = NodePath("../HealthComponent")
