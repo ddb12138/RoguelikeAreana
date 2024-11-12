@@ -60,6 +60,7 @@ func on_damage_interval_timer_timeout():
 	check_deal_damage()
 
 func on_body_entered(ohter_body: Node2D):
+	print("被进入了")
 	number_colliding_bodies += 1
 	check_deal_damage()
 	

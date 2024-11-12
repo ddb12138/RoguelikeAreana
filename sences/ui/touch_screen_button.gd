@@ -14,7 +14,7 @@ func _input(event: InputEvent) -> void:
 			var global_pos := st.position * get_canvas_transform()
 			var local_pos := global_pos * get_global_transform()
 			var rect := Rect2(Vector2.ZERO, texture_normal.get_size())
-			rect = enlarge_rect(rect, 1.20)
+			rect = enlarge_rect(rect, 1.50)
 			print("size:", texture_normal.get_size())
 			if rect.has_point(local_pos):
 				# 按下

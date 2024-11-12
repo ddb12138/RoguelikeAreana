@@ -26,11 +26,15 @@ func play_jingle(defeat: bool = false):
 
 func on_continue_button_presseed():
 	ScreenTransition.transition()
-	await ScreenTransition.transitioned_halfway			
+	await ScreenTransition.transitioned_halfway		
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://sences/ui/meta_menu.tscn")
 	
 func on_quit_button_presseed():
-	ScreenTransition.transition_to_scene("res://sences/main/main.tscn")
-	await ScreenTransition.transitioned_halfway
+	ScreenTransition.transition()
+	await ScreenTransition.transitioned_halfway		
 	get_tree().paused = false
+	get_tree().change_scene_to_file("res://sences/ui/main_menu.tscn")
+	#ScreenTransition.transition_to_scene("res://sences/main/main.tscn")
+	#await ScreenTransition.transitioned_halfway
+	#get_tree().paused = false

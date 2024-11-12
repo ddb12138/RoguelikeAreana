@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://drpkwiqnedh6p" path="res://sences/component/health_component.tscn" id="1_0sn8f"]
 [ext_resource type="Script" path="res://sences/game_object/wizard_enemy/wizard_enemy.gd" id="1_wp1xd"]
 [ext_resource type="PackedScene" uid="uid://bgd540jvuom26" path="res://sences/component/death_component.tscn" id="2_3revp"]
-[ext_resource type="Material" uid="uid://day2g7n5t5wqo" path="res://sences/game_object/wizard_enemy/angry_state.tres" id="2_eelbn"]
+[ext_resource type="Material" uid="uid://db4tvvikq2ejy" path="res://sences/game_object/wizard_enemy/normal_state.tres" id="2_yy4dw"]
 [ext_resource type="PackedScene" uid="uid://buohpvp830bq8" path="res://sences/component/velocity_component.tscn" id="3_awgmy"]
 [ext_resource type="PackedScene" uid="uid://bdp4gbuiabe2f" path="res://sences/component/hit_flash_component.tscn" id="4_0jhx5"]
 [ext_resource type="PackedScene" uid="uid://6uf5bn1m7x3a" path="res://sences/component/hurtbox_component.tscn" id="4_gt8w2"]
@@ -202,7 +202,7 @@ shader = ExtResource("5_vnhoo")
 shader_parameter/lerp_percent = 0.0
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tghhk"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vt7ws"]
 resource_local_to_scene = true
 shader = ExtResource("5_vnhoo")
 shader_parameter/lerp_percent = 0.0
@@ -223,9 +223,8 @@ script = ExtResource("1_wp1xd")
 
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.716678)
 self_modulate = Color(1, 1, 1, 0.529412)
-material = ExtResource("2_eelbn")
+material = ExtResource("2_yy4dw")
 texture = ExtResource("14_koxrm")
 offset = Vector2(0, -8)
 
@@ -246,7 +245,7 @@ acceleration = 20.0
 material = SubResource("ShaderMaterial_hqx2f")
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
-hit_flash_material = SubResource("ShaderMaterial_tghhk")
+hit_flash_material = SubResource("ShaderMaterial_vt7ws")
 flash_interval = 0.15
 
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_compoent") instance=ExtResource("4_yk0va")]
@@ -269,5 +268,6 @@ position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_l5bld")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_v0chg")

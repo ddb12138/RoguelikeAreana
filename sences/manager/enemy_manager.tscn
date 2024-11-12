@@ -1,15 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://dpl8wkek50y27"]
+[gd_scene load_steps=6 format=3 uid="uid://dpl8wkek50y27"]
 
 [ext_resource type="Script" path="res://sences/manager/enemy_manager.gd" id="1_okjj4"]
 [ext_resource type="PackedScene" uid="uid://rjwsyk147fw1" path="res://sences/game_object/basic_enemy/basic_enemy.tscn" id="2_5ebk5"]
 [ext_resource type="PackedScene" uid="uid://br1t4h7hwts4k" path="res://sences/game_object/wizard_enemy/wizard_enemy.tscn" id="2_f5pdt"]
 [ext_resource type="PackedScene" uid="uid://cmb8pkyay42vf" path="res://sences/game_object/bat_enemy/bat_enemy.tscn" id="4_2qhhx"]
+[ext_resource type="PackedScene" uid="uid://ba00kckmwvnjd" path="res://sences/game_object/mimic_chest_enemy/mimic_chest_enemy.tscn" id="5_te6ea"]
 
 [node name="EnemyManager" type="Node"]
 script = ExtResource("1_okjj4")
 basic_enemy_scene = ExtResource("2_5ebk5")
 wizard_enemy_scene = ExtResource("2_f5pdt")
 bat_enemy_scene = ExtResource("4_2qhhx")
+mimic_chest_enemy_scene = ExtResource("5_te6ea")
 
 [node name="Timer" type="Timer" parent="."]
 autostart = true

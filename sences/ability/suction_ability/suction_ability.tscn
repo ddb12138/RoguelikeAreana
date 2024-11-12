@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://desj4kc36oypm"]
+
+[ext_resource type="Script" path="res://sences/ability/suction_ability/suction_ability.gd" id="1_ij024"]
+
+[node name="SuctionAbility" type="Node"]
+script = ExtResource("1_ij024")

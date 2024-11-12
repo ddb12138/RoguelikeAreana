@@ -83,11 +83,13 @@ _data = {
 resource_local_to_scene = true
 shader = ExtResource("5_fh4fl")
 shader_parameter/lerp_percent = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6q31"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qhtj4"]
 resource_local_to_scene = true
 shader = ExtResource("5_fh4fl")
 shader_parameter/lerp_percent = 0.0
+shader_parameter/outline_color = Color(0, 0, 0, 1)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g0edy"]
 radius = 8.0
@@ -117,7 +119,7 @@ acceleration = 20.0
 material = SubResource("ShaderMaterial_hqx2f")
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
-hit_flash_material = SubResource("ShaderMaterial_y6q31")
+hit_flash_material = SubResource("ShaderMaterial_qhtj4")
 flash_interval = 0.15
 
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_compoent") instance=ExtResource("6_s1e1j")]
@@ -142,11 +144,9 @@ texture = ExtResource("14_0o7nf")
 health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
-visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_g0edy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_7y51d")

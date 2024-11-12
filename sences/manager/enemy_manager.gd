@@ -6,6 +6,7 @@ const SPAWN_RADIUS = 200
 @export var basic_enemy_scene: PackedScene
 @export var wizard_enemy_scene: PackedScene
 @export var bat_enemy_scene: PackedScene
+@export var mimic_chest_enemy_scene: PackedScene
 @export var arena_time_manager: Node
 
 @onready var timer = $Timer
@@ -16,6 +17,7 @@ var number_to_swpan = 1
 
 var wizard_generate = false
 var bat_generate = false
+var mimic_cheset_generate = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	enemy_table.add_item(basic_enemy_scene, 30)
@@ -74,3 +76,7 @@ func on_arena_difficulty_increased(arena_difficulty: int):
 		bat_generate = true
 		number_to_swpan += 1
 	
+	if arena_difficulty == 8 && !mimic_cheset_generate:
+		enemy_table.add_item(mimic_chest_enemy_scene, 5)
+		mimic_cheset_generate = true
+		
