@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=3 uid="uid://to3qx0ef4qux"]
+
+[ext_resource type="Script" path="res://sences/buff/heal_buff/heal_buff.gd" id="1_f17mm"]
+[ext_resource type="Texture2D" uid="uid://b78svtgy5ox7v" path="res://sences/buff/heal_buff/heal.png" id="2_u3d11"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y3rei"]
+lifetime_randomness = 0.3
+particle_flag_disable_z = true
+emission_shape_offset = Vector3(0, -10, 0)
+emission_shape = 1
+emission_sphere_radius = 10.0
+angular_velocity_min = -1.60933e-05
+angular_velocity_max = 100.0
+gravity = Vector3(0, 200, 0)
+tangential_accel_min = -79.55
+tangential_accel_max = 48.94
+scale_min = 0.3
+scale_max = 0.6
+
+[node name="HealBuff" type="Node" node_paths=PackedStringArray("_gpu_2d")]
+script = ExtResource("1_f17mm")
+_isPermanent = true
+_trigger_intervals = 15.0
+_gpu_2d = NodePath("GPUParticles2D")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+modulate = Color(1, 1, 1, 0.745098)
+position = Vector2(2, 1)
+emitting = false
+amount = 4
+process_material = SubResource("ParticleProcessMaterial_y3rei")
+texture = ExtResource("2_u3d11")
+lifetime = 0.2
+one_shot = true
+fixed_fps = 0

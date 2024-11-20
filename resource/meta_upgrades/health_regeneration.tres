@@ -4,8 +4,8 @@
 
 [resource]
 script = ExtResource("1_4d4lq")
-id = "生命回复"
-max_quantity = 3
+id = "buff_heal"
+max_quantity = 1
 experience_cost = 200
 title = "生命回复"
-description = "缓慢生命回复"
+description = "每15秒缓慢1点回复生命"

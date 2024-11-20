@@ -7,6 +7,8 @@ extends CharacterBody2D
 @onready var abilities = $Abilities
 @onready var visuals = $Visuals
 @onready var velocity_component = $VelocityComponent
+@onready var buff_component: BuffManager = $BuffComponent
+
 
 var number_colliding_bodies = 0 #正在碰撞玩家个数
 
@@ -19,8 +21,11 @@ func _ready() -> void:
 	$CollisonArea2D.body_exited.connect(on_body_exited)
 	damage_interval_timer.timeout.connect(on_damage_interval_timer_timeout)
 	health_component.health_changed.connect(on_health_changed)
+	health_component.health_heal.connect(on_health_heal)
 	GameEvents.ability_upgrade_added.connect(on_ability_upgrade_added)
+	init_meta_buff()
 	update_health_display()
+
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -55,18 +60,26 @@ func check_deal_damage():
 func update_health_display():
 	health_bar.value = health_component.get_health_percent()
 
+func init_meta_buff():
+	var meta_buff_map = MetaProgression.get_meta_buff_upgrade_info()
+	for buff_name in meta_buff_map:
+		buff_component.add_buff(buff_name)
 	
 func on_damage_interval_timer_timeout():
 	check_deal_damage()
 
 func on_body_entered(ohter_body: Node2D):
-	print("被进入了")
 	number_colliding_bodies += 1
 	check_deal_damage()
 	
 func on_body_exited(ohter_body: Node2D):
 	number_colliding_bodies -= 1
 
+func on_health_heal():
+	GameEvents.emit_player_heal()
+	update_health_display()
+	$HealRandomStreamPlayer.play_random()
+	
 func on_health_changed():
 	GameEvents.emit_player_damaged()
 	update_health_display()

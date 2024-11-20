@@ -202,7 +202,7 @@ shader = ExtResource("5_vnhoo")
 shader_parameter/lerp_percent = 0.0
 shader_parameter/outline_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_vt7ws"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xh26g"]
 resource_local_to_scene = true
 shader = ExtResource("5_vnhoo")
 shader_parameter/lerp_percent = 0.0
@@ -245,7 +245,7 @@ acceleration = 20.0
 material = SubResource("ShaderMaterial_hqx2f")
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
-hit_flash_material = SubResource("ShaderMaterial_vt7ws")
+hit_flash_material = SubResource("ShaderMaterial_xh26g")
 flash_interval = 0.15
 
 [node name="VialDropComponent" parent="." node_paths=PackedStringArray("health_compoent") instance=ExtResource("4_yk0va")]

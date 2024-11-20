@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=4 uid="uid://bxmahovrcuqx5"]
+[gd_scene load_steps=16 format=4 uid="uid://bxmahovrcuqx5"]
 
 [ext_resource type="PackedScene" uid="uid://c3lc8gddwsaky" path="res://sences/ui/arena_time_ui.tscn" id="1_107ru"]
 [ext_resource type="PackedScene" uid="uid://kjupgwbkn5py" path="res://sences/game_object/game_camera/game_camera.tscn" id="1_d4nip"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://dxuet5tis60ne" path="res://sences/manager/upgrade_manager.tscn" id="6_ju578"]
 [ext_resource type="PackedScene" uid="uid://bm5oojs1y64bl" path="res://sences/game_object/experience_vial/experience_vial.tscn" id="13_ci8cr"]
 [ext_resource type="PackedScene" uid="uid://brtml66mfnw5" path="res://sences/ui/virtual_joypad.tscn" id="14_rq280"]
+[ext_resource type="PackedScene" uid="uid://cwlarrac32pt3" path="res://test/Test.tscn" id="15_5xwii"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_jbmp3")
@@ -78,3 +79,5 @@ position = Vector2(253, 89)
 
 [node name="ExperienceView6" parent="Foreground" instance=ExtResource("13_ci8cr")]
 position = Vector2(197, 84)
+
+[node name="Test" parent="." instance=ExtResource("15_5xwii")]

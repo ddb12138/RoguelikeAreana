@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://b683n42uof8m5"]
+
+[ext_resource type="Script" path="res://sences/ability/thunder_ability/thunder.gd" id="1_8f12l"]
+
+[node name="Thunder" type="Line2D"]
+script = ExtResource("1_8f12l")
+
+[node name="a" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(527, 306)
+
+[node name="b" type="Marker2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(276, 59)
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+autostart = true
