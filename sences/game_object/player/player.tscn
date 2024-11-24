@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://bj8juk7rytyqx"]
+[gd_scene load_steps=28 format=3 uid="uid://bj8juk7rytyqx"]
 
 [ext_resource type="Script" path="res://sences/game_object/player/player.gd" id="1_6sswo"]
 [ext_resource type="Texture2D" uid="uid://cudhur8y6db75" path="res://sences/game_object/player/player.png" id="1_uhrpy"]
 [ext_resource type="PackedScene" uid="uid://buohpvp830bq8" path="res://sences/component/velocity_component.tscn" id="2_8a45l"]
 [ext_resource type="PackedScene" uid="uid://cmt2xi0xuqruu" path="res://sences/ability/sword_ability_controller/sword_ability_controller.tscn" id="2_ofklg"]
+[ext_resource type="PackedScene" uid="uid://b683n42uof8m5" path="res://sences/ability/thunder_ability/thunder.tscn" id="4_fafrv"]
 [ext_resource type="PackedScene" uid="uid://drpkwiqnedh6p" path="res://sences/component/health_component.tscn" id="4_ghi0l"]
 [ext_resource type="PackedScene" uid="uid://8jtvjle63353" path="res://sences/component/buff_component.tscn" id="5_1jfck"]
 [ext_resource type="PackedScene" uid="uid://cp6u3727enecb" path="res://sences/component/random_stream_player_2d_component.tscn" id="5_aem8j"]
@@ -143,6 +144,10 @@ max_speed = 125
 acceleration = 25.0
 
 [node name="Abilities" type="Node" parent="."]
+
+[node name="Thunder" parent="Abilities" instance=ExtResource("4_fafrv")]
+
+[node name="Thunder2" parent="Abilities" instance=ExtResource("4_fafrv")]
 
 [node name="SwordAbilityController" parent="Abilities" instance=ExtResource("2_ofklg")]
 

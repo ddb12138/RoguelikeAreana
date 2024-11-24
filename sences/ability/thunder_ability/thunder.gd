@@ -1,43 +1,72 @@
 extends Line2D
 
-var Arc:int =100 #扭曲次数
-var RandRange = 10 #随机偏移幅度
-var Division = 80 #随机分裂次数
-var LightingPath:Array #闪电路径
-var LightSpeed = 0 #闪电速度
+@export var Arc:int =10 #扭曲次数
+@export var RandRange = 10 #随机偏移幅度
+@export var Division = 80 #随机分裂次数
+@export var LightingPath:Array #闪电路径
+@export var LightSpeed = 0.001 #闪电速度
+@export var LightWidth = 1 #闪电粗细
+@export var LightAmount = 5 #闪电次数
+@export var LightDistance = 200 #闪电有效距离
+@export var LightDamage = 2 #闪电伤害
+var player: Node	#玩家
+var LightEnemies:Array	#击中敌人(首位为0)
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
+func _ready() -> void:	
 	$Timer.timeout.connect(on_time_out)
-	width = 1
+	width = LightWidth
+	player = get_tree().get_first_node_in_group("player")
 
-
-var t: float = 300
-var netPath:Array
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#netPath.append(Vector2(t,t))
 	self.points = LightingPath
-	#t += 1
+
+#寻找最近的N个敌人
+func findNearestEnemy():
+	#获取周围半径内的敌人
+	var enemies = get_tree().get_nodes_in_group("enemy");
+	enemies = enemies.filter(func(enemy:Node2D):
+		return enemy.global_position.distance_squared_to(player.global_position) < pow(LightDistance, 2)	
+	)
+	if enemies.size() == 0:
+		return
+	
+	var iterNum = min(LightAmount, enemies.size())
+	#寻找敌人路径
+	for i in iterNum :
+		LightEnemies.append(enemies[i])
+	LightEnemies.shuffle()	
+	#绘制闪电
+	var from:Vector2 = player.global_position #来源
+	var to:Vector2 #去往
+	for i in range(0, LightEnemies.size()):
+		var toEnemy = LightEnemies[i]
+		if toEnemy == null: continue
+		to = toEnemy.global_position
+		toEnemy.hurtbox_component.on_hit(LightDamage)
+		await draw_lighting(from, to) #绘制函数放在最后
+		from = to
+
+
 	
 
-func set_lighting():
-	print("SHEZHI")
-	self.modulate = Color(1,1,1,1)
+#绘画闪电
+func draw_lighting(from: Vector2, to: Vector2):
+	self.modulate = Color(1,1,1,1) #设置透明度不为0
 	LightingPath.clear()
-	LightingPath.append
-		
-	print(%a.global_position)
-	#
-	##a点位置
-	LightingPath.append(%a.global_position)
+	
+	
+	#起点位置
+	LightingPath.append(from)
 	#
 	##设置中间点位置
 	for N in (Arc - 2):
-		LightingPath.append(LightingPath.back() + ((%b.global_position - LightingPath.back())/(Arc - N - 1)) - Vector2(randf_range(-RandRange,RandRange), randf_range(-RandRange, RandRange)))
+		LightingPath.append(LightingPath.back() + ((to - LightingPath.back())/(Arc - N - 1)) - Vector2(randf_range(-RandRange,RandRange), randf_range(-RandRange, RandRange)))
 		if LightSpeed != 0:
-			await get_tree().create_timer(LightSpeed /0.001, true).timeout
+			await get_tree().create_timer(LightSpeed /1, true).timeout
+	
+	LightingPath.append(to)
 
 func on_time_out():
-	set_lighting()
+	#draw_lighting(%a.global_position, %b.global_position)
+	await findNearestEnemy()
+	LightEnemies.clear()

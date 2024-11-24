@@ -7,12 +7,14 @@ script = ExtResource("1_8f12l")
 
 [node name="a" type="Marker2D" parent="."]
 unique_name_in_owner = true
+visible = false
 position = Vector2(527, 306)
 
 [node name="b" type="Marker2D" parent="."]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 0.0588235, 1)
 position = Vector2(276, 59)
 
 [node name="Timer" type="Timer" parent="."]
-one_shot = true
 autostart = true

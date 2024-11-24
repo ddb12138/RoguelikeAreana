@@ -6,6 +6,7 @@ extends CharacterBody2D
 @onready var suction_ability: Node = $SuctionAbility
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var velocity_component: Node = $VelocityComponent
+@onready var hurtbox_component: HurtboxComponent = %HurtboxComponent
 
 var player:Node2D
 var isPlayingAnimation:bool =  false

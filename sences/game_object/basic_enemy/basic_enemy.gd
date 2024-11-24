@@ -4,6 +4,8 @@ const MAX_SPEED = 40
 
 @onready var visuals =  $Visuals
 @onready var velocity_component = $VelocityComponent
+@onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
+
 
 func _ready() -> void:
 	$HurtboxComponent.hit.connect(on_hit)

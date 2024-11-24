@@ -3,6 +3,7 @@ extends CharacterBody2D
 @onready var visuals = $Visuals
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var sprite_2d: Sprite2D = %Sprite2D
+@onready var hurtbox_component: HurtboxComponent = $HurtboxComponent
 
 var angry_state = preload("res://sences/game_object/wizard_enemy/angry_state.tres")
 

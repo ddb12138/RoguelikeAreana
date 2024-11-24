@@ -9,7 +9,6 @@ extends CharacterBody2D
 @onready var velocity_component = $VelocityComponent
 @onready var buff_component: BuffManager = $BuffComponent
 
-
 var number_colliding_bodies = 0 #正在碰撞玩家个数
 
 var base_speed = 0
