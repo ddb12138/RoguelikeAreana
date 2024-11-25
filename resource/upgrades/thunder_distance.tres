@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://dlrgmcnw7h3un"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_abp8v"]
+
+[resource]
+script = ExtResource("1_abp8v")
+id = "闪电:距离"
+max_quantity = 2
+name = "闪电:距离"
+description = "增加闪电距离"

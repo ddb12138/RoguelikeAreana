@@ -13,7 +13,6 @@ var player: Node	#玩家
 var LightEnemies:Array	#击中敌人(首位为0)
 
 func _ready() -> void:	
-	$Timer.timeout.connect(on_time_out)
 	width = LightWidth
 	player = get_tree().get_first_node_in_group("player")
 
@@ -46,9 +45,6 @@ func findNearestEnemy():
 		await draw_lighting(from, to) #绘制函数放在最后
 		from = to
 
-
-	
-
 #绘画闪电
 func draw_lighting(from: Vector2, to: Vector2):
 	self.modulate = Color(1,1,1,1) #设置透明度不为0
@@ -66,7 +62,7 @@ func draw_lighting(from: Vector2, to: Vector2):
 	
 	LightingPath.append(to)
 
-func on_time_out():
-	#draw_lighting(%a.global_position, %b.global_position)
+func call_thunder_func():
 	await findNearestEnemy()
 	LightEnemies.clear()
+	LightingPath.clear()

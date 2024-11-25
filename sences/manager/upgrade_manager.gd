@@ -15,7 +15,12 @@ var upgrade_anvil = preload("res://resource/upgrades/anvil.tres")
 var upgrade_anvil_damage = preload("res://resource/upgrades/anvil_damage.tres")
 var upgrade_anvil_amount = preload("res://resource/upgrades/anvil_amount.tres")
 var upgrade_huge_sword = preload("res://resource/upgrades/huge_sword.tres")
-
+var upgrade_thunder = preload("res://resource/upgrades/thunder.tres")
+var upgrade_ability_num = preload("res://resource/upgrades/thunder_ability_num.tres")
+var upgrade_thunder_amount = preload("res://resource/upgrades/thunder_amount.tres")
+var upgrade_thunder_damage = preload("res://resource/upgrades/thunder_damage.tres")
+var upgrade_thunder_distance = preload("res://resource/upgrades/thunder_distance.tres")
+var upgrade_thunder_rate = preload("res://resource/upgrades/thunder_rate.tres")
 
 func _ready() -> void:
 	upgrade_pool.add_item(upgrade_axe, 20)
@@ -24,7 +29,7 @@ func _ready() -> void:
 	upgrade_pool.add_item(upgrade_sword_rate, 10)
 	upgrade_pool.add_item(upgrade_sword_damage, 10)
 	upgrade_pool.add_item(upgrade_player_speed, 5)
-	
+	upgrade_pool.add_item(upgrade_thunder, 30)
 
 	expericen_manager.level_up.connect(on_level_up)
 	
@@ -54,7 +59,13 @@ func update_upgrade_pool(chosen_upgrade: AbilityUpgrade):
 		upgrade_pool.add_item(upgrade_anvil_damage, 10)
 		upgrade_pool.add_item(upgrade_anvil_amount, 10)
 		return
-	
+	if chosen_upgrade.id == upgrade_thunder.id:
+		upgrade_pool.add_item(upgrade_ability_num, 100)
+		upgrade_pool.add_item(upgrade_thunder_amount, 100)
+		upgrade_pool.add_item(upgrade_thunder_damage, 100)
+		upgrade_pool.add_item(upgrade_thunder_distance, 100)
+		upgrade_pool.add_item(upgrade_thunder_rate, 100)
+				
 func pick_upgrades():
 	var chosen_upgrades: Array[AbilityUpgrade] = []
 	for i in 2:

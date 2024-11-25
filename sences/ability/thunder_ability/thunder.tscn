@@ -15,6 +15,3 @@ unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 0.0588235, 1)
 position = Vector2(276, 59)
-
-[node name="Timer" type="Timer" parent="."]
-autostart = true

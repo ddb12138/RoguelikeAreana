@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://du8mvs2rawefb"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_7rgaf"]
+
+[resource]
+script = ExtResource("1_7rgaf")
+id = "闪电:频率"
+max_quantity = 5
+name = "闪电:频率"
+description = "加快闪电频率"

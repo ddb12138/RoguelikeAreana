@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3 uid="uid://dq11k83ateg6o"]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_k3bi0"]
+
+[resource]
+script = ExtResource("1_k3bi0")
+id = "闪电:人数"
+max_quantity = 5
+name = "闪电:人数"
+description = "增加闪电可击中人数"
