@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://c0wjrdmd1dnh7"]
+
+[ext_resource type="Texture2D" uid="uid://dugba6eqs30xg" path="res://sences/game_object/mimic_chest_enemy/box_06.png" id="1_vt5rt"]
+[ext_resource type="Script" path="res://resource/Beastiary/beastiary.gd" id="2_606q3"]
+
+[resource]
+script = ExtResource("2_606q3")
+name = "宝箱怪"
+damage = "1"
+health = "50"
+description = "伪装成宝箱的怪物,玩家靠近一定距离后会苏醒,追逐玩家并且自带吸力"
+picture = ExtResource("1_vt5rt")

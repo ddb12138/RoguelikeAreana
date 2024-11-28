@@ -1,8 +1,29 @@
-[gd_scene load_steps=2 format=3 uid="uid://b683n42uof8m5"]
+[gd_scene load_steps=4 format=3 uid="uid://b683n42uof8m5"]
 
 [ext_resource type="Script" path="res://sences/ability/thunder_ability/thunder.gd" id="1_8f12l"]
+[ext_resource type="Shader" path="res://asserts/shader/liquidprogressbar.gdshader" id="1_ruacu"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_asvka"]
+shader = ExtResource("1_ruacu")
+shader_parameter/bg_color = null
+shader_parameter/uv_scale = 1.0
+shader_parameter/percentage = 1.0
+shader_parameter/speed = 1.0
+shader_parameter/wave_1_speed = -1.0
+shader_parameter/wave_2_speed = 1.0
+shader_parameter/wave_1_freq = 1.2
+shader_parameter/wave_2_freq = 1.0
+shader_parameter/wave_1_amp = 0.015
+shader_parameter/wave_2_amp = 0.01
+shader_parameter/sun_dir = Vector3(-0.2, 0.4, 1)
+shader_parameter/water_colour = Color(1, 1, 0.6, 1)
+shader_parameter/foam_colour = Color(0.8, 0.9, 1, 1)
+shader_parameter/sky_colour = Color(1, 1, 1, 1)
+shader_parameter/specular_colour = Color(1, 1, 1, 1)
 
 [node name="Thunder" type="Line2D"]
+material = SubResource("ShaderMaterial_asvka")
+texture_mode = 2
 script = ExtResource("1_8f12l")
 
 [node name="a" type="Marker2D" parent="."]
@@ -15,3 +36,5 @@ unique_name_in_owner = true
 visible = false
 modulate = Color(1, 1, 0.0588235, 1)
 position = Vector2(276, 59)
+
+[node name="Timer" type="Timer" parent="."]

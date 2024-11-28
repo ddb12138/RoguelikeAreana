@@ -15,7 +15,7 @@ var LightEnemies:Array	#击中敌人(首位为0)
 func _ready() -> void:	
 	width = LightWidth
 	player = get_tree().get_first_node_in_group("player")
-
+	#$Timer.timeout.connect(on_time_out)
 func _process(delta: float) -> void:
 	self.points = LightingPath
 
@@ -66,3 +66,6 @@ func call_thunder_func():
 	await findNearestEnemy()
 	LightEnemies.clear()
 	LightingPath.clear()
+
+func on_time_out():
+	draw_lighting(%a.global_position, %b.global_position)

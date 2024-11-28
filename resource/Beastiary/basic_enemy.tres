@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bel3a775s3i2e"]
+
+[ext_resource type="Texture2D" uid="uid://btj6nu2i2hvns" path="res://sences/game_object/basic_enemy/basic_enemy.png" id="1_hcqum"]
+[ext_resource type="Script" path="res://resource/Beastiary/beastiary.gd" id="2_0trq1"]
+
+[resource]
+script = ExtResource("2_0trq1")
+name = "盔甲小怪"
+damage = "1"
+health = "10"
+description = "最常见的小怪,没啥特殊的"
+picture = ExtResource("1_hcqum")

@@ -1,0 +1,133 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxm1d7cegd608"]
+
+[ext_resource type="Script" path="res://sences/ui/monster_menu.gd" id="1_3cefl"]
+[ext_resource type="Texture2D" uid="uid://cmkpbvdxq85fe" path="res://resource/GUI.png" id="2_kowej"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0jvsk"]
+texture = ExtResource("2_kowej")
+texture_margin_left = 37.0
+texture_margin_right = 36.0
+region_rect = Rect2(0, 96, 47, 32)
+
+[node name="MonsterMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3cefl")
+
+[node name="Menu" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Beastiary" type="Button" parent="Menu"]
+layout_mode = 0
+offset_right = 56.0
+offset_bottom = 21.0
+text = "Beastiary"
+
+[node name="Skill" type="Button" parent="Menu"]
+layout_mode = 0
+offset_left = 77.0
+offset_top = 1.0
+offset_right = 104.0
+offset_bottom = 22.0
+text = "Skill"
+
+[node name="Beastiary" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Beastiary"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 50.0
+offset_top = -147.0
+offset_right = 300.0
+offset_bottom = 103.0
+grow_vertical = 2
+
+[node name="EnemyList" type="VBoxContainer" parent="Beastiary/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="Infomation" type="Panel" parent="Beastiary"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -271.0
+offset_top = -146.0
+offset_right = -21.0
+offset_bottom = 104.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Beastiary/Infomation"]
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 0
+offset_left = 71.0
+offset_top = 18.0
+offset_right = 151.0
+offset_bottom = 98.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_0jvsk")
+
+[node name="TextureRect" type="TextureRect" parent="Beastiary/Infomation"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(80, 80)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_top = 18.0
+offset_right = 27.0
+offset_bottom = 98.0
+grow_horizontal = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Beastiary/Infomation"]
+custom_minimum_size = Vector2(200, 140)
+layout_mode = 0
+offset_left = 3.0
+offset_top = 113.0
+offset_right = 245.0
+offset_bottom = 263.0
+
+[node name="Name" type="Label" parent="Beastiary/Infomation/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Name"
+
+[node name="Damage" type="Label" parent="Beastiary/Infomation/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Damage"
+
+[node name="Health" type="Label" parent="Beastiary/Infomation/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Health"
+
+[node name="Description" type="Label" parent="Beastiary/Infomation/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Description"
+autowrap_mode = 2
