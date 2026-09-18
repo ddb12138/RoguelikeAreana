@@ -5,7 +5,7 @@
 这是 Godot 4.3 / GDScript 的俯视角 2D 生存动作游戏，项目名 `blood`。采用场景组合、可复用组件、Resource 配置和信号通信。
 
 - 开始任务先看 `git status --short`，保留用户已有修改。
-- 首次进入项目先读 `docs/ARCHITECTURE.md`；执行和验证前读 `docs/DEVELOPMENT.md`。
+- 首次进入项目先读 `docs/architecture/ARCHITECTURE.md`；执行和验证前读 `docs/development/DEVELOPMENT.md`。
 - 修改一个模块时，同时读相关 `.gd`、`.tscn`、`.tres`；文档是导航，当前源码与场景绑定是事实来源。
 - 默认用中文解释结果，区分源码推断、实际验证和未验证内容。
 
@@ -15,6 +15,7 @@
 - 战斗场景：`sences/main/main.tscn`；玩家：`sences/game_object/player/`。
 - 局内管理：`sences/manager/`；通用组件：`sences/component/`。
 - 武器实体与控制器：`sences/ability/`；升级资源：`resource/upgrades/`。
+- 宝箱怪的玩法、状态机和吸力约定：`docs/monsters/MIMIC_CHEST.md`。
 - 事件总线：`sences/autoload/game_events.gd`；局外成长与存档：`sences/autoload/meta_progression.gd`。
 
 ## 修改约定
@@ -36,11 +37,11 @@
 - 基准引擎为 Godot `4.3.stable.official.77dcf97d8`。本次机器可执行文件：`/Applications/Godot.app/Contents/MacOS/Godot`；其他机器先检测路径和版本。
 - **启动游戏会写存档**：MetaProgression 在 `_ready()` 中自动增加两项升级并保存。自动运行使用项目副本，并只在副本中将 `config/custom_user_dir_name` 改为唯一测试目录；仅复制项目仍会共用原存档。
 - `user://game.save` 的数据结构和已有升级 ID 必须保持兼容；不要删除真实存档来解决测试问题。
-- 依照 `docs/DEVELOPMENT.md` 做导入检查、受影响场景的运行检查及必要的人工回归。检查完整错误输出，退出码为 0 不代表无错误。
-- 当前没有 GUT/GdUnit 或自动断言测试套件；`test/Test.tscn` 是挂在主场景里的实验节点，不是测试通过的证据。
+- 依照 `docs/development/DEVELOPMENT.md` 做导入检查、受影响场景的运行检查及必要的人工回归。检查完整错误输出，退出码为 0 不代表无错误。
+- 当前没有 GUT/GdUnit；`test/Test.tscn` 是挂在主场景里的实验节点。独立自动断言场景 `test/mimic_regression.tscn` 覆盖宝箱状态、吸力和玩家移动，需按开发文档在隔离副本中运行。
 - 纯文档修改核对路径、源码事实和差异即可。行为修改选择针对性验证，不为低影响修改搭建无关测试体系。
 - 报告具体改动、验证范围、遗留错误和未测项；不要将 headless 启动成功描述为画面、手感或完整通关验证。
 
 ## 知识维护
 
-结构、事件链路、存档结构或运行方法变化时，同步更新相关文档。已知问题见 `docs/DEVELOPMENT.md`，修复后更新状态；不要将现有缺陷当作新功能必须遵循的设计。
+结构、事件链路、存档结构或运行方法变化时，同步更新相关文档。已知问题见 `docs/development/DEVELOPMENT.md`，修复后更新状态；不要将现有缺陷当作新功能必须遵循的设计。

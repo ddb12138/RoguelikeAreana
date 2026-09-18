@@ -15,7 +15,7 @@
 | 规模 | Git 跟踪的 65 个 `.gd`、59 个 `.tscn`、28 个 `.tres`、6 个 `.gdshader` |
 | 导出配置 | Windows Desktop、Web、Android；存在预设不代表已验证导出 |
 
-目前没有看到外部插件目录、自动测试框架或 CI 配置。无需为理解项目先安装知识图谱工具；本次地图来自源码与场景交叉阅读。
+目前没有外部插件目录、通用自动测试框架或 CI 配置。后续新增了独立的宝箱怪回归场景 `test/mimic_regression.tscn`。本次地图来自源码与场景交叉阅读。
 
 ## 目录职责
 
@@ -38,7 +38,7 @@ resource/               自定义资源类及 .tres 配置
   changelog/            更新日志数据对象
 asserts/                美术、音效、音乐、字体包，保留原拼写
 scripts/weighted_table.gd  敌人和升级共用的加权随机表
-test/                   实验场景，不是自动化测试套件
+test/                   原有实验场景，以及独立的宝箱怪自动回归场景
 ```
 
 ## 场景装配与生命周期
@@ -122,7 +122,7 @@ flowchart TD
 
 `EnemyManager` 通过 WeightedTable 抽取敌人，在玩家周围半径 200 的位置生成，并用地形射线尝试避开障碍。初始普通敌人权重 30；难度 3 加入巫师（20），难度 6 加入蝙蝠（10），难度 8 加入宝箱怪（5）。前两次解锁还各增加一次生成数量，计时器间隔也随难度缩短。
 
-普通敌人和蝙蝠追踪玩家；巫师由动画轨道切换移动状态，半血进入特殊表现；宝箱怪按距离唤醒/休眠，由动画轨道更新追逐状态，并调用 SuctionAbility 拉动玩家。检查这两类敌人必须同时读动画轨道。
+普通敌人和蝙蝠追踪玩家；巫师由动画轨道切换移动状态，半血进入特殊表现。宝箱怪使用休息、唤醒、追逐、入睡四态，动画完成信号推进状态；追逐时注册吸力源，由玩家汇总外部速度后统一移动。详细参数、玩法和已修复的动画时序问题见 [宝箱怪声明](../monsters/MIMIC_CHEST.md)。
 
 ### 升级资源
 
@@ -160,7 +160,7 @@ save_data = {
 
 | 类型 | 当前值 / 用途 |
 | --- | --- |
-| Group | `player`、`enemy`、`entites_layer`、`foreground_layer`、`upgrade_card`、`meta_upgrade_card` |
+| Group | `player`、`enemy`、`entites_layer`、`foreground_layer`、`upgrade_card`、`meta_upgrade_card`；动态吸力源组 `suction_sources` |
 | 输入动作 | `move_left/right/up/down`、`left_click`、`暂停` |
 | 音频总线 | `Master`、`sfx`、`music` |
 | 常见节点访问 | `$HealthComponent`、`$Abilities`、`%Player`、`%CardContainer` |
