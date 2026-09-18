@@ -186,29 +186,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [5, 4, 3, 2, 1, 0]
 }
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.56, 0.59, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"values": [{
-"args": [true],
-"method": &"set_play_state"
-}, {
-"args": [false],
-"method": &"set_chasing_state"
-}, {
-"args": [],
-"method": &"play_idle"
-}, {
-"args": [false],
-"method": &"set_play_state"
-}]
-}
 
 [sub_resource type="Animation" id="Animation_yvxjf"]
 resource_name = "wakeup"
@@ -225,29 +202,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4, 5]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.59, 0.595, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"values": [{
-"args": [true],
-"method": &"set_play_state"
-}, {
-"args": [false],
-"method": &"set_play_state"
-}, {
-"args": [],
-"method": &"play_chase"
-}, {
-"args": [true],
-"method": &"set_chasing_state"
-}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2g8gq"]

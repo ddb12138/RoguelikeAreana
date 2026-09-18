@@ -31,7 +31,10 @@ func _process(delta: float) -> void:
 	var movement_vector = get_movement_vector()
 	var direction = movement_vector.normalized()
 	velocity_component.accelerate_in_direction(direction)
-	velocity_component.move(self)
+	var suction_velocity = Vector2.ZERO
+	for source in get_tree().get_nodes_in_group("suction_sources"):
+		suction_velocity += source.get_suction_velocity(self)
+	velocity_component.move(self, suction_velocity)
 
 	if movement_vector.x != 0 || movement_vector.y != 0:
 		animation_player.play("walk")

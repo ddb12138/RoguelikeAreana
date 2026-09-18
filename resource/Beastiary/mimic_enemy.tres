@@ -8,5 +8,5 @@ script = ExtResource("2_606q3")
 name = "宝箱怪"
 damage = "1"
 health = "50"
-description = "伪装成宝箱的怪物,玩家靠近一定距离后会苏醒,追逐玩家并且自带吸力"
+description = "伪装成宝箱的怪物，玩家靠近后苏醒并追逐，持续吸扯玩家干扰走位。拉开足够距离后停止追逐和吸力，重新闭合休息。"
 picture = ExtResource("1_vt5rt")

@@ -24,7 +24,14 @@ func accelerate_in_direction(direction: Vector2):
 func decelarate():
 	accelerate_in_direction(Vector2.ZERO)
 
-func move(character_body: CharacterBody2D):
-	character_body.velocity = velocity
+func move(character_body: CharacterBody2D, external_velocity: Vector2 = Vector2.ZERO):
+	character_body.velocity = velocity + external_velocity
 	character_body.move_and_slide()
-	velocity = character_body.velocity	
+	if external_velocity.is_zero_approx():
+		velocity = character_body.velocity
+	else:
+		# Keep the temporary pull out of the persistent movement velocity.
+		for i in character_body.get_slide_collision_count():
+			var normal = character_body.get_slide_collision(i).get_normal()
+			if velocity.dot(normal) < 0:
+				velocity = velocity.slide(normal)
