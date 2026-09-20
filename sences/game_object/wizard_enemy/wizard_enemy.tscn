@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://br1t4h7hwts4k"]
+[gd_scene load_steps=26 format=3 uid="uid://br1t4h7hwts4k"]
 
 [ext_resource type="PackedScene" uid="uid://drpkwiqnedh6p" path="res://sences/component/health_component.tscn" id="1_0sn8f"]
 [ext_resource type="Script" path="res://sences/game_object/wizard_enemy/wizard_enemy.gd" id="1_wp1xd"]
@@ -16,6 +16,8 @@
 [ext_resource type="AudioStream" uid="uid://b4ppvtwnyb0cl" path="res://asserts/audio/footstep_carpet_003.ogg" id="11_q6uiv"]
 [ext_resource type="AudioStream" uid="uid://bm07bn1607l7a" path="res://asserts/audio/footstep_carpet_004.ogg" id="12_5fcgu"]
 [ext_resource type="Texture2D" uid="uid://bfuxwymr40765" path="res://asserts/game_obj/wizard.png" id="14_koxrm"]
+
+[ext_resource type="PackedScene" path="res://sences/component/buff_component.tscn" id="99_burn"]
 
 [sub_resource type="Animation" id="Animation_u0dig"]
 length = 0.001
@@ -113,7 +115,7 @@ tracks/3/keys = {
 "args": [true],
 "method": &"set_is_moving"
 }, {
-"args": [],
+"args": [false],
 "method": &"set_is_moving"
 }]
 }
@@ -260,8 +262,9 @@ streams = Array[AudioStream]([ExtResource("8_swj7v"), ExtResource("9_jrl53"), Ex
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_gt8w2")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "buff_component") instance=ExtResource("4_gt8w2")]
 health_component = NodePath("../HealthComponent")
+buff_component = NodePath("../BuffComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, -8)
@@ -271,3 +274,8 @@ shape = SubResource("CircleShape2D_l5bld")
 visible = false
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_v0chg")
+
+[node name="BuffComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("99_burn")]
+health_component = NodePath("../HealthComponent")
+burn_visual_offset = Vector2(0, -8)
+burn_visual_scale = 0.22

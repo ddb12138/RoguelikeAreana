@@ -6,6 +6,7 @@ var base_damage = 5
 var additional_damage_percent = 1
 #场景动画
 @export var sword_ability: PackedScene
+@export var burn_config: BurnConfig
 var base_wait_time
 
 # 负责生成剑实体逻辑
@@ -36,6 +37,7 @@ func on_timer_timeout():
 
 	#初始化武器生成地
 	var sword_instance = sword_ability.instantiate() as SwordAbility
+	sword_instance.burn_config = burn_config
 	var foreground_layer = get_tree().get_first_node_in_group("foreground_layer")
 	foreground_layer.add_child(sword_instance)
 	sword_instance.hitbox_component.damage = base_damage * additional_damage_percent

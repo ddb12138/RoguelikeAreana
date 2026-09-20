@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://rjwsyk147fw1"]
+[gd_scene load_steps=24 format=3 uid="uid://rjwsyk147fw1"]
 
 [ext_resource type="Script" path="res://sences/game_object/basic_enemy/basic_enemy.gd" id="1_t62ta"]
 [ext_resource type="PackedScene" uid="uid://drpkwiqnedh6p" path="res://sences/component/health_component.tscn" id="2_hfe28"]
@@ -15,6 +15,8 @@
 [ext_resource type="AudioStream" uid="uid://8d8ahesn1t1w" path="res://asserts/audio/footstep_carpet_002.ogg" id="13_pf4yh"]
 [ext_resource type="AudioStream" uid="uid://b4ppvtwnyb0cl" path="res://asserts/audio/footstep_carpet_003.ogg" id="14_ft0vf"]
 [ext_resource type="AudioStream" uid="uid://bm07bn1607l7a" path="res://asserts/audio/footstep_carpet_004.ogg" id="15_o1y72"]
+
+[ext_resource type="PackedScene" path="res://sences/component/buff_component.tscn" id="99_burn"]
 
 [sub_resource type="Animation" id="Animation_xu5io"]
 length = 0.001
@@ -130,8 +132,9 @@ streams = Array[AudioStream]([ExtResource("10_62vfx"), ExtResource("12_f7g1a"), 
 health_component = NodePath("../HealthComponent")
 sprite = NodePath("../Visuals/Sprite2D")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_vuopj")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "buff_component") instance=ExtResource("4_vuopj")]
 health_component = NodePath("../HealthComponent")
+buff_component = NodePath("../BuffComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, -5)
@@ -146,3 +149,8 @@ shape = SubResource("CircleShape2D_ds3x7")
 [node name="Sprite2D" type="Sprite2D" parent="Visuals"]
 texture = ExtResource("2_hltxg")
 offset = Vector2(0, -4)
+
+[node name="BuffComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("99_burn")]
+health_component = NodePath("../HealthComponent")
+burn_visual_offset = Vector2(0, -8)
+burn_visual_scale = 0.22

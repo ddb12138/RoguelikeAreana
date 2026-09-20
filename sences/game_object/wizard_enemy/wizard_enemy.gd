@@ -8,10 +8,12 @@ extends CharacterBody2D
 var angry_state = preload("res://sences/game_object/wizard_enemy/angry_state.tres")
 
 var is_moving = false
+var is_angry: bool = false
 
 func _ready() -> void:
 	$HurtboxComponent.hit.connect(on_hit)
 	$HealthComponent.died.connect(on_die)
+	$HealthComponent.health_changed.connect(on_health_changed)
 	
 
 func _process(delta: float) -> void:
@@ -30,7 +32,10 @@ func set_is_moving(moving: bool):
 
 func on_hit():
 	$HitRandomAudioPlayerComponent.play_random()
-	if health_component.get_health_percent() <= 0.5:
+
+func on_health_changed() -> void:
+	if not is_angry and health_component.current_health > 0 and health_component.get_health_percent() <= 0.5:
+		is_angry = true
 		$AnimationPlayer.play("disappear")
 		sprite_2d.material = angry_state
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cmb8pkyay42vf"]
+[gd_scene load_steps=24 format=3 uid="uid://cmb8pkyay42vf"]
 
 [ext_resource type="Script" path="res://sences/game_object/bat_enemy/bat_enemy.gd" id="1_hs23b"]
 [ext_resource type="PackedScene" uid="uid://drpkwiqnedh6p" path="res://sences/component/health_component.tscn" id="2_ehx6o"]
@@ -15,6 +15,8 @@
 [ext_resource type="PackedScene" uid="uid://bgd540jvuom26" path="res://sences/component/death_component.tscn" id="13_vj6sg"]
 [ext_resource type="Texture2D" uid="uid://btlaegiy7r4uf" path="res://sences/game_object/bat_enemy/bat.png" id="14_0o7nf"]
 [ext_resource type="PackedScene" uid="uid://6uf5bn1m7x3a" path="res://sences/component/hurtbox_component.tscn" id="15_brxjo"]
+
+[ext_resource type="PackedScene" path="res://sences/component/buff_component.tscn" id="99_burn"]
 
 [sub_resource type="Animation" id="Animation_u0dig"]
 length = 0.001
@@ -140,8 +142,9 @@ sprite = NodePath("../Visuals/Sprite2D")
 position = Vector2(0, -7)
 texture = ExtResource("14_0o7nf")
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("15_brxjo")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "buff_component") instance=ExtResource("15_brxjo")]
 health_component = NodePath("../HealthComponent")
+buff_component = NodePath("../BuffComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, -8)
@@ -150,3 +153,8 @@ shape = SubResource("CircleShape2D_g0edy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -4)
 shape = SubResource("CircleShape2D_7y51d")
+
+[node name="BuffComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("99_burn")]
+health_component = NodePath("../HealthComponent")
+burn_visual_offset = Vector2(0, -8)
+burn_visual_scale = 0.18

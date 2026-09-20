@@ -1,0 +1,73 @@
+{
+  "downloaded_on": "2026-09-19",
+  "license": "CC0-1.0",
+  "license_url": "https://creativecommons.org/publicdomain/zero/1.0/",
+  "archives": [
+    {
+      "file": "cethiel-fire.zip",
+      "author": "Cethiel",
+      "source": "https://opengameart.org/content/weapon-slash-effect",
+      "download": "https://opengameart.org/sites/default/files/Alternative%203%20Fire.zip",
+      "bytes": 336600,
+      "sha256": "6e6896e328c55c5c839df7d3bc6814746887a4da16c7ab78a55663c2cef65150"
+    },
+    {
+      "file": "para-effects.zip",
+      "author": "para",
+      "source": "https://opengameart.org/content/animated-particle-effects-2",
+      "download": "https://opengameart.org/sites/default/files/para_CC0_particlefx-2.zip",
+      "bytes": 5927098,
+      "sha256": "469676f3fc08509e4ec824147d179a51a9a71c380a3d0fd142cf8e30355f50f8"
+    },
+    {
+      "file": "kenney-particles.zip",
+      "author": "Kenney Vleugels",
+      "source": "https://kenney.nl/assets/particle-pack",
+      "download": "https://kenney.nl/media/pages/assets/particle-pack/f8fe0f8cb8-1677578741/kenney_particle-pack.zip",
+      "bytes": 15001764,
+      "sha256": "b631d4b07f7002549fdcf155f01141ad482f79f3440e4e301eed49ce5f1d8958"
+    }
+  ],
+  "files": [
+    {
+      "path": "cethiel/Alternative_3_01.png",
+      "sha256": "33ca5b84c55de959d0a0fb2276c333ad5312f49bda4304d2fb7149f3071f9b9a",
+      "modified": false
+    },
+    {
+      "path": "cethiel/Alternative_3_02.png",
+      "sha256": "06f5d2d748c98dd29dd9730c7f991bfbf5e08a97952c2ee1f4b85d615b98a055",
+      "modified": false
+    },
+    {
+      "path": "cethiel/Alternative_3_03.png",
+      "sha256": "a32224f71b8ed5837a400d35856da4665131bc7ecb70522e67b0c7088d16dfa3",
+      "modified": false
+    },
+    {
+      "path": "cethiel/Alternative_3_04.png",
+      "sha256": "bb6ff26052f66e1c9a4865794a7460b9e1d6859fdf2494b70519ca08c7d2ec7b",
+      "modified": false
+    },
+    {
+      "path": "cethiel/Alternative_3_05.png",
+      "sha256": "299b0e2b03bea9e46189fed987492ac7c9ff0c86eafe7ae905a4a2f22423e271",
+      "modified": false
+    },
+    {
+      "path": "cethiel/Alternative_3_06.png",
+      "sha256": "01483a35393aafb1b791586830a3125f309a1b7c25d48c140171c63fc89cf0fd",
+      "modified": false
+    },
+    {
+      "path": "kenney/spark_01.png",
+      "sha256": "5902da3a324cad0a4b5a88ce1e3c9cc18fee50922c358ce93d8c9f1ad7708f0a",
+      "modified": false
+    },
+    {
+      "path": "para/fire_01.png",
+      "sha256": "c5972bcf21abde267eaf48b3e1b90a0ca06d7c5b87e49024cf051f4bbc3a4ed0",
+      "modified": false
+    }
+  ]
+}

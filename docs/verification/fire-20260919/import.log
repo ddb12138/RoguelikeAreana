@@ -1,0 +1,34 @@
+Godot Engine v4.3.stable.official.77dcf97d8 - https://godotengine.org
+
+ERROR: Cannot open file 'res://.godot/imported/Rockboxcond12.ttf-e9c069a5f1a15a9843a419db6e2d5413.fontdata'.
+   at: load (core/io/resource_format_binary.cpp:1214)
+ERROR: Failed loading resource: res://.godot/imported/Rockboxcond12.ttf-e9c069a5f1a15a9843a419db6e2d5413.fontdata. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Failed loading resource: res://resource/theme/Rockboxcond12.ttf. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Unable to open file: res://.godot/imported/ui.png-e616a612c9ad937b51f4d63ba968a1d4.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:41)
+ERROR: Failed loading resource: res://.godot/imported/ui.png-e616a612c9ad937b51f4d63ba968a1d4.ctex. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Failed loading resource: res://asserts/ui/ui.png. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: res://resource/theme/theme.tres:7 - Parse Error: [ext_resource] referenced non-existent resource at: res://asserts/ui/ui.png
+   at: _parse_ext_resource (scene/resources/resource_format_text.cpp:159)
+ERROR: res://resource/theme/theme.tres:7 - Parse Error: [ext_resource] referenced non-existent resource at: res://asserts/ui/ui.png
+   at: load (scene/resources/resource_format_text.cpp:600)
+ERROR: Failed loading resource: res://resource/theme/theme.tres. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Error loading custom project theme 'res://resource/theme/theme.tres'
+   at: initialize_theme (scene/theme/theme_db.cpp:72)
+ERROR: Cannot open file 'res://.godot/imported/My Giant Bunny Friend.mp3-e7f9ccfca539f545c79fc7231685728a.mp3str'.
+   at: load (core/io/resource_format_binary.cpp:1214)
+ERROR: Failed loading resource: res://.godot/imported/My Giant Bunny Friend.mp3-e7f9ccfca539f545c79fc7231685728a.mp3str. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Failed loading resource: res://asserts/audio/My Giant Bunny Friend.mp3. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Unable to open file: res://.godot/imported/screen_transition.png-73017cfd4121b0c815b329a4df1cf458.ctex.
+   at: _load_data (scene/resources/compressed_texture.cpp:41)
+ERROR: Failed loading resource: res://.godot/imported/screen_transition.png-73017cfd4121b0c815b329a4df1cf458.ctex. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)
+ERROR: Failed loading resource: res://asserts/ui/screen_transition.png. Make sure resources have been imported by opening the project in the editor at least once.
+   at: _load (core/io/resource_loader.cpp:284)

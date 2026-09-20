@@ -11,6 +11,7 @@ signal health_heal
 @export var max_health: float = 10
 
 var current_health # 当前生命值
+var death_emitted: bool = false
 
 func _ready():
 	current_health = max_health
@@ -37,7 +38,8 @@ func heal(heal_amount: int):
 
 # 检查死亡： 发射信号，销毁实体
 func check_death():
-	if current_health == 0:
+	if current_health == 0 and not death_emitted:
+		death_emitted = true
 		died.emit()
 		owner.queue_free()
 	

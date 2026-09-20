@@ -12,6 +12,12 @@ class_name BuffBase
 @export var _velocity_component: Node #速度组件,由buff组件负责初始化
 @export var _gpu_2d: GPUParticles2D #播放粒子效果组件
 
+# 默认保持治疗 Buff 原有的首帧触发方式；周期伤害由子类覆盖。
+func advance(delta: float) -> void:
+	calculate_time_pass(delta)
+	if try_active_buff():
+		apply_buff()
+
 #随时间变化相关参数
 func calculate_time_pass(delta:float):
 	_used_duration += delta
@@ -34,4 +40,4 @@ func apply_buff():
 
 #子类实现: buff销毁函数
 func destory_buff():
-	pass
+	queue_free()

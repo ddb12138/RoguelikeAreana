@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://ba00kckmwvnjd"]
+[gd_scene load_steps=34 format=3 uid="uid://ba00kckmwvnjd"]
 
 [ext_resource type="Script" path="res://sences/game_object/mimic_chest_enemy/mimic_chest_enemy.gd" id="1_0tfdh"]
 [ext_resource type="PackedScene" uid="uid://desj4kc36oypm" path="res://sences/ability/suction_ability/suction_ability.tscn" id="2_bace7"]
@@ -21,6 +21,8 @@
 [ext_resource type="AudioStream" uid="uid://8d8ahesn1t1w" path="res://asserts/audio/footstep_carpet_002.ogg" id="17_3vya5"]
 [ext_resource type="AudioStream" uid="uid://b4ppvtwnyb0cl" path="res://asserts/audio/footstep_carpet_003.ogg" id="18_q6nmk"]
 [ext_resource type="AudioStream" uid="uid://bm07bn1607l7a" path="res://asserts/audio/footstep_carpet_004.ogg" id="19_ylog7"]
+
+[ext_resource type="PackedScene" path="res://sences/component/buff_component.tscn" id="99_burn"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w0or8"]
 animations = [{
@@ -278,9 +280,10 @@ hit_flash_material = SubResource("ShaderMaterial_8njnv")
 volume_db = 10.0
 streams = Array[AudioStream]([ExtResource("15_koosa"), ExtResource("16_hcoov"), ExtResource("17_3vya5"), ExtResource("18_q6nmk"), ExtResource("19_ylog7")])
 
-[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("3_3875w")]
+[node name="HurtboxComponent" parent="." node_paths=PackedStringArray("health_component", "buff_component") instance=ExtResource("3_3875w")]
 unique_name_in_owner = true
 health_component = NodePath("../HealthComponent")
+buff_component = NodePath("../BuffComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtboxComponent"]
 position = Vector2(0, -8)
@@ -294,3 +297,8 @@ shape = SubResource("CircleShape2D_6nnym")
 visible = false
 position = Vector2(0, -8)
 texture = ExtResource("7_i2oky")
+
+[node name="BuffComponent" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("99_burn")]
+health_component = NodePath("../HealthComponent")
+burn_visual_offset = Vector2(0, -8)
+burn_visual_scale = 0.28
