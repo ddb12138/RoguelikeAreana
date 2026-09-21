@@ -68,7 +68,7 @@ SwordAbilityController.burn_config
 
 回归脚本是新增的独立场景 [`test/fire_buff_regression.tscn`](../test/fire_buff_regression.tscn)，未挂入主场景，也不是原来的实验节点 `test/Test.tscn`。覆盖首跳和到期边界、低帧率补跳、持续刷新、实例复用、跟随、暂停／恢复、小数伤害与自定义间隔、无效配置、敌人间状态独立、巫师状态轨道、灼烧击杀和一次掉落、普通攻击、治疗与剑特效生命周期。
 
-按 [开发基线](DEVELOPMENT.md#隔离运行) 准备副本和唯一测试用户目录，先导入，再执行：
+按 [开发基线](development/DEVELOPMENT.md#隔离运行) 准备副本和唯一测试用户目录，先导入，再执行：
 
 ```sh
 # CHECK_PROJECT 必须是修改了 custom_user_dir_name 的隔离副本，不能指向原工作区。

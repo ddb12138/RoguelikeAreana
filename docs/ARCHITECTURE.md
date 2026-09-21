@@ -1,3 +1,5 @@
+> 历史文档：现行维护入口为 [architecture/ARCHITECTURE.md](architecture/ARCHITECTURE.md)。本文件保留迁移前记录，不作为最新现状依据。
+
 # 项目知识地图
 
 依据：2026-09-17 工作区与基准提交 `96cb1c0`。这是当前实现的说明，不是完整产品规格。
