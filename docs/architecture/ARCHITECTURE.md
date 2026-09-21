@@ -15,7 +15,7 @@
 | 规模 | Git 跟踪的 65 个 `.gd`、59 个 `.tscn`、28 个 `.tres`、6 个 `.gdshader` |
 | 导出配置 | Windows Desktop、Web、Android；存在预设不代表已验证导出 |
 
-目前没有外部插件目录、通用自动测试框架或 CI 配置。后续新增了独立的宝箱怪回归场景 `test/mimic_regression.tscn`。本次地图来自源码与场景交叉阅读。
+目前没有外部插件目录、通用自动测试框架或 CI 配置。后续新增了独立的宝箱怪回归场景 `test/mimic_regression.tscn`，以及火焰和战斗实验场回归。本次地图来自源码与场景交叉阅读。
 
 ## 目录职责
 
@@ -28,7 +28,7 @@ sences/                 原有目录拼写，所有主要场景与脚本
   game_object/          玩家、四种敌人、经验瓶、摄像机
   component/            生命、移动、攻击/受击、掉落、音效、Buff 等
   ability/              自动武器控制器、攻击实体、宝箱怪吸引能力
-  buff/                 Buff 基类与治疗实现；冰/火目录目前只有图片
+  buff/                 Buff 基类、治疗与灼烧实现；冰目录目前只有图片
   ui/                   主菜单、暂停、结算、升级、设置、摇杆等
 resource/               自定义资源类及 .tres 配置
   upgrades/             局内武器解锁和数值升级
@@ -111,18 +111,22 @@ flowchart TD
 
 ### 战斗与组件
 
-- 普通武器的 `HitboxComponent` 保存伤害值；敌人 `HurtboxComponent` 监听区域进入，调用生命组件并显示飘字、发出受击信号。
+- 普通武器的 `HitboxComponent` 保存伤害值及可选 BurnConfig；敌人 `HurtboxComponent` 监听区域进入，调用生命组件并显示飘字、发出受击信号。
 - 闪电例外：直接调用敌人的 `hurtbox_component.on_hit()`，不经 Hitbox 物理接触。新增敌人需要维持这个可访问字段。
 - 玩家受伤是另一条链：`CollisonArea2D.body_entered/exited` 统计接触敌人，`DamageIntervalTimer` 控制每 0.5 秒扣 1 点生命。不能假设玩家和敌人的受伤入口完全一致。
-- `HealthComponent.damage()` 正数扣血，负数治疗；死亡检查延迟执行，发出 `died` 后释放 `owner`。掉落和死亡特效依赖这个时序。
+- `HealthComponent.damage()` 正数扣血，负数治疗；死亡检查延迟执行，以一次性保护发出 `died` 后释放 `owner`。掉落和死亡特效依赖这个时序。
 - `VelocityComponent` 处理加速、追踪玩家和 `move_and_slide()`；玩家与多数敌人在 `_process()` 调用它。
-- 玩家永久 Buff 来自 `MetaProgression.get_meta_buff_upgrade_info()`，由 BuffManager 实例化。当前注册实现仅 `buff_heal`；治疗场景配置永久生效、15 秒触发间隔，首次触发时机由 BuffBase 的计时条件决定。
+- 玩家永久 Buff 来自 `MetaProgression.get_meta_buff_upgrade_info()`，由 BuffManager 实例化。名称注册表仅 `buff_heal`；敌人灼烧由独立 `add_burn()` 接口创建／刷新；治疗场景配置永久生效、15 秒触发间隔，首次触发时机由 BuffBase 的计时条件决定。
+
+- 剑默认附带火焰：6 秒、每 2 秒 3 点；四种敌人都绑定 BuffComponent。重复命中刷新持续时间，不重置下一跳；参数在 `resource/buffs/sword_fire.tres`，见 [火焰实现](../FIRE_BUFF.md)。
 
 ### 生成与难度
 
 `EnemyManager` 通过 WeightedTable 抽取敌人，在玩家周围半径 200 的位置生成，并用地形射线尝试避开障碍。初始普通敌人权重 30；难度 3 加入巫师（20），难度 6 加入蝙蝠（10），难度 8 加入宝箱怪（5）。前两次解锁还各增加一次生成数量，计时器间隔也随难度缩短。
 
-普通敌人和蝙蝠追踪玩家；巫师由动画轨道切换移动状态，半血进入特殊表现。宝箱怪使用休息、唤醒、追逐、入睡四态，动画完成信号推进状态；追逐时注册吸力源，由玩家汇总外部速度后统一移动。详细参数、玩法和已修复的动画时序问题见 [宝箱怪声明](../monsters/MIMIC_CHEST.md)。
+普通敌人和蝙蝠追踪玩家；巫师由动画轨道切换移动状态，通过生命变化信号在半血时一次进入特殊表现（包含灼烧伤害）。宝箱怪使用休息、唤醒、追逐、入睡四态，动画完成信号推进状态；追逐时注册吸力源，由玩家汇总外部速度后统一移动。详细参数、玩法和已修复的动画时序问题见 [宝箱怪声明](../monsters/MIMIC_CHEST.md)。
+
+独立实验场通过 EnemyManager 的可选 `test_enemy_scene` 固定怪物并屏蔽难度扩池；正式场景默认 null。使用方式见 [战斗实验场](../development/COMBAT_LAB.md)。
 
 ### 升级资源
 
@@ -135,6 +139,8 @@ flowchart TD
 | 铁毡 | `anvil.tres`，ID `铁毡` | `铁毡:伤害升级`、`铁毡:数量升级` |
 | 巨剑 | `huge_sword.tres`，ID `巨剑` | 当前没有对应数值升级资源 |
 | 闪电 | `thunder.tres`，ID `闪电` | 距离、伤害、人数、数量、频率 |
+
+各武器的核心 GDScript、数值公式、升级表和变种见 [武器学习手册](../weapons/README.md)。UpgradeManager 的 `test_weapon_id` 默认空串，不筛选；独立实验场按武器 ID 过滤候选，空池时不打开升级界面。
 
 初始升级池另含 `玩家移速`。解锁武器后，UpgradeManager 将对应强化项加入池中；达到 `max_quantity > 0` 的上限后移除。当前最多抽两张卡。新增 `.tres` **不会自动注册**到升级池。
 
