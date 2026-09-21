@@ -9,6 +9,11 @@ const SPAWN_RADIUS = 200
 @export var mimic_chest_enemy_scene: PackedScene
 @export var arena_time_manager: Node
 
+# 仅独立战斗实验场设置；null 时保持正式生成规则。
+@export var test_enemy_scene: PackedScene
+@export_range(1, 100, 1) var test_max_enemies: int = 1
+@export_range(0.1, 30.0, 0.1) var test_spawn_interval: float = 2.0
+
 @onready var timer = $Timer
 
 var base_spwan_time = 0
@@ -20,7 +25,11 @@ var bat_generate = false
 var mimic_cheset_generate = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	enemy_table.add_item(basic_enemy_scene, 30)
+	if test_enemy_scene != null:
+		enemy_table.add_item(test_enemy_scene, 1)
+		timer.wait_time = test_spawn_interval
+	else:
+		enemy_table.add_item(basic_enemy_scene, 30)
 	base_spwan_time = timer.wait_time
 	timer.timeout.connect(on_timer_timeout)
 	arena_time_manager.arena_difficulty_increased.connect(on_arena_difficulty_increased)
@@ -53,6 +62,8 @@ func on_timer_timeout():
 	if player == null:	
 		return
 	
+	if test_enemy_scene != null and get_tree().get_nodes_in_group("enemy").size() >= test_max_enemies:
+		return
 	for i in number_to_swpan:
 		var enemy_scene = enemy_table.pick_item()
 		var enemy = enemy_scene.instantiate() as Node2D
@@ -62,6 +73,8 @@ func on_timer_timeout():
 		enemy.global_position = get_spawn_position()
 	
 func on_arena_difficulty_increased(arena_difficulty: int):
+	if test_enemy_scene != null:
+		return
 	var time_off = (.1/12) * arena_difficulty
 	time_off = min(time_off, .7)
 	timer.wait_time = base_spwan_time - time_off

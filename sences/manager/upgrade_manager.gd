@@ -2,6 +2,8 @@ extends Node
 
 @export var expericen_manager: Node
 @export var upgrade_screen_scene: PackedScene
+# 空串：正式升级池；实验场传入稳定武器 ID，"无" 表示关闭升级。
+@export var test_weapon_id: String = ""
 
 var current_upgrades = {}
 var upgrade_pool: WeightedTable = WeightedTable.new()
@@ -67,18 +69,23 @@ func update_upgrade_pool(chosen_upgrade: AbilityUpgrade):
 		upgrade_pool.add_item(upgrade_thunder_rate, 100)
 				
 func pick_upgrades():
+	# 在抽取时过滤，解锁后动态加入的强化也不会混入其他武器。
+	var candidates = WeightedTable.new()
+	for entry in upgrade_pool.items:
+		var upgrade = entry["item"] as AbilityUpgrade
+		if test_weapon_id.is_empty() or upgrade.id == test_weapon_id or upgrade.id.begins_with(test_weapon_id + ":"):
+			candidates.add_item(upgrade, entry["weight"])
 	var chosen_upgrades: Array[AbilityUpgrade] = []
-	for i in 2:
-		if upgrade_pool.items.size() == chosen_upgrades.size():
-			break
-		var chosen_upgrade = upgrade_pool.pick_item(chosen_upgrades)
-		chosen_upgrades.append(chosen_upgrade)
+	for i in mini(2, candidates.items.size()):
+		chosen_upgrades.append(candidates.pick_item(chosen_upgrades))
 	return chosen_upgrades
 	
 func on_level_up(current_level:int):
+	var chosen_upgrades = pick_upgrades()
+	if chosen_upgrades.is_empty():
+		return
 	var upgrade_screen_instance = upgrade_screen_scene.instantiate()
 	add_child(upgrade_screen_instance)
-	var chosen_upgrades = pick_upgrades()
 	upgrade_screen_instance.set_ability_upgrades(chosen_upgrades)
 	upgrade_screen_instance.upgrade_selected.connect(on_upgrade_selected)
 

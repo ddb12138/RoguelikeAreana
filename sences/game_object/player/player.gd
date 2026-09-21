@@ -9,6 +9,9 @@ extends CharacterBody2D
 @onready var velocity_component = $VelocityComponent
 @onready var buff_component: BuffManager = $BuffComponent
 
+# 默认关闭，只有战斗实验场可选开启；不改变移动、吸力和敌人碰撞。
+@export var test_invulnerable: bool = false
+
 var number_colliding_bodies = 0 #正在碰撞玩家个数
 
 var base_speed = 0
@@ -53,6 +56,8 @@ func get_movement_vector():
 
 # 检查玩家受伤害
 func check_deal_damage():
+	if test_invulnerable:
+		return
 	if number_colliding_bodies == 0 || !damage_interval_timer.is_stopped():
 			return
 	health_component.damage(1)
