@@ -1,5 +1,7 @@
 extends Node
 
+const SWORD_FIRE_CONFIG = preload("res://resource/buffs/sword_fire.tres")
+
 #攻击判定范围
 @export var MAX_RANGE:int
 var base_damage = 5
@@ -55,3 +57,22 @@ func on_ability_upgrade_added(upgrade:AbilityUpgrade, current_upgrades: Dictiona
 		$Timer.start()
 	elif upgrade.id == "剑:伤害升级":
 		additional_damage_percent = 1 + (current_upgrades["剑:伤害升级"]["quantity"] * .15)
+	elif upgrade.id == "剑:火焰附魔":
+		update_burn_config(current_upgrades)
+	elif upgrade.id.begins_with("剑:火焰"):
+		update_burn_config(current_upgrades)
+
+func update_burn_config(current_upgrades: Dictionary) -> void:
+	var fire_config := SWORD_FIRE_CONFIG.duplicate() as BurnConfig
+	var damage_quantity: int = get_upgrade_quantity(current_upgrades, "剑:火焰伤害升级")
+	var duration_quantity: int = get_upgrade_quantity(current_upgrades, "剑:火焰持续升级")
+	var rate_quantity: int = get_upgrade_quantity(current_upgrades, "剑:火焰频率升级")
+	fire_config.tick_damage = SWORD_FIRE_CONFIG.tick_damage + damage_quantity * 1.0
+	fire_config.duration = SWORD_FIRE_CONFIG.duration + duration_quantity * 1.0
+	fire_config.tick_interval = maxf(0.2, SWORD_FIRE_CONFIG.tick_interval - rate_quantity * 0.2)
+	burn_config = fire_config
+
+func get_upgrade_quantity(current_upgrades: Dictionary, upgrade_id: String) -> int:
+	if not current_upgrades.has(upgrade_id):
+		return 0
+	return int(current_upgrades[upgrade_id]["quantity"])

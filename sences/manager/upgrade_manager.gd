@@ -12,6 +12,10 @@ var upgrade_axe = preload("res://resource/upgrades/axe.tres")
 var upgrade_axe_damage = preload("res://resource/upgrades/axe_damage.tres")
 var upgrade_sword_rate = preload("res://resource/upgrades/sword_rate.tres")
 var upgrade_sword_damage = preload("res://resource/upgrades/sword_damage.tres")
+var upgrade_sword_fire = preload("res://resource/upgrades/sword_fire.tres")
+var upgrade_sword_fire_damage = preload("res://resource/upgrades/sword_fire_damage.tres")
+var upgrade_sword_fire_duration = preload("res://resource/upgrades/sword_fire_duration.tres")
+var upgrade_sword_fire_rate = preload("res://resource/upgrades/sword_fire_rate.tres")
 var upgrade_player_speed = preload("res://resource/upgrades/player_speed.tres")
 var upgrade_anvil = preload("res://resource/upgrades/anvil.tres")
 var upgrade_anvil_damage = preload("res://resource/upgrades/anvil_damage.tres")
@@ -30,6 +34,7 @@ func _ready() -> void:
 	upgrade_pool.add_item(upgrade_huge_sword, 20)
 	upgrade_pool.add_item(upgrade_sword_rate, 10)
 	upgrade_pool.add_item(upgrade_sword_damage, 10)
+	upgrade_pool.add_item(upgrade_sword_fire, 10)
 	upgrade_pool.add_item(upgrade_player_speed, 5)
 	upgrade_pool.add_item(upgrade_thunder, 30)
 
@@ -67,6 +72,11 @@ func update_upgrade_pool(chosen_upgrade: AbilityUpgrade):
 		upgrade_pool.add_item(upgrade_thunder_damage, 100)
 		upgrade_pool.add_item(upgrade_thunder_distance, 100)
 		upgrade_pool.add_item(upgrade_thunder_rate, 100)
+		return
+	if chosen_upgrade.id == upgrade_sword_fire.id:
+		upgrade_pool.add_item(upgrade_sword_fire_damage, 10)
+		upgrade_pool.add_item(upgrade_sword_fire_duration, 10)
+		upgrade_pool.add_item(upgrade_sword_fire_rate, 10)
 				
 func pick_upgrades():
 	# 在抽取时过滤，解锁后动态加入的强化也不会混入其他武器。

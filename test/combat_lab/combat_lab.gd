@@ -24,7 +24,6 @@ enum LabState { CONFIGURING, STARTING, RUNNING, FAILED }
 @export_range(1, 100, 1) var max_enemies: int = 1
 @export_range(0.1, 30.0, 0.1) var spawn_interval: float = 2.0
 @export var invulnerable: bool = true
-@export var sword_fire: bool = true
 # 回归测试和 Inspector 可显式跳过配置页；普通启动保持 false。
 @export var auto_start: bool = false
 
@@ -89,9 +88,6 @@ func parse_command_line_configuration() -> bool:
 		elif arg.begins_with("--lab-spawn-interval="):
 			spawn_interval = clampf(arg.trim_prefix("--lab-spawn-interval=").to_float(), 0.1, 30.0)
 			has_lab_argument = true
-		elif arg == "--lab-no-fire":
-			sword_fire = false
-			has_lab_argument = true
 		elif arg == "--lab-vulnerable":
 			invulnerable = false
 			has_lab_argument = true
@@ -109,7 +105,6 @@ func write_configuration_to_form() -> void:
 	max_enemies_spin.value = max_enemies
 	spawn_interval_spin.value = spawn_interval
 	invulnerable_check.button_pressed = invulnerable
-	sword_fire_check.button_pressed = sword_fire
 	on_weapon_selected(weapon_option.selected)
 
 func select_option_text(option: OptionButton, text: String) -> void:
@@ -132,7 +127,6 @@ func start_from_form() -> void:
 	max_enemies = int(max_enemies_spin.value)
 	spawn_interval = float(spawn_interval_spin.value)
 	invulnerable = invulnerable_check.button_pressed
-	sword_fire = sword_fire_check.button_pressed
 	start_experiment()
 
 func start_experiment() -> void:
@@ -157,8 +151,6 @@ func start_experiment() -> void:
 	var default_sword = player.get_node("Abilities/SwordAbilityController")
 	if weapon_kind != "剑":
 		default_sword.free()
-	elif not sword_fire:
-		default_sword.burn_config = null
 
 	arena = next_arena
 	add_child(arena)
@@ -192,8 +184,9 @@ func on_weapon_selected(index: int) -> void:
 	if index < 0 or index >= weapon_option.item_count:
 		return
 	var is_sword = weapon_option.get_item_text(index) == "剑"
-	sword_fire_check.disabled = not is_sword
-	sword_fire_check.tooltip_text = "只对剑生效" if not is_sword else "关闭后可测试没有火焰附魔的普通剑"
+	sword_fire_check.disabled = true
+	sword_fire_check.button_pressed = false
+	sword_fire_check.tooltip_text = "火焰剑现在通过正式升级卡牌获得"
 
 func build_panel() -> void:
 	var canvas = CanvasLayer.new()

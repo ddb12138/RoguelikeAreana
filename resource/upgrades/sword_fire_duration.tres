@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_fire_duration"]
+
+[resource]
+script = ExtResource("1_fire_duration")
+id = "剑:火焰持续升级"
+max_quantity = 5
+name = "火焰：持续时间"
+description = "每级增加 1 秒灼烧持续时间"

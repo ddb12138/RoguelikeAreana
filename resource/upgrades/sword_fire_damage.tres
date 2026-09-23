@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_fire_damage"]
+
+[resource]
+script = ExtResource("1_fire_damage")
+id = "剑:火焰伤害升级"
+max_quantity = 5
+name = "火焰：灼烧伤害"
+description = "每级增加 1 点灼烧每跳伤害"

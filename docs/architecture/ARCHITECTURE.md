@@ -118,7 +118,7 @@ flowchart TD
 - `VelocityComponent` 处理加速、追踪玩家和 `move_and_slide()`；玩家与多数敌人在 `_process()` 调用它。
 - 玩家永久 Buff 来自 `MetaProgression.get_meta_buff_upgrade_info()`，由 BuffManager 实例化。名称注册表仅 `buff_heal`；敌人灼烧由独立 `add_burn()` 接口创建／刷新；治疗场景配置永久生效、15 秒触发间隔，首次触发时机由 BuffBase 的计时条件决定。
 
-- 剑默认附带火焰：6 秒、每 2 秒 3 点；四种敌人都绑定 BuffComponent。重复命中刷新持续时间，不重置下一跳；参数在 `resource/buffs/sword_fire.tres`，见 [火焰实现](../FIRE_BUFF.md)。
+- 正式默认剑不带火焰 Buff。选择 `剑:火焰附魔` 卡牌后才注入 `resource/buffs/sword_fire.tres`，测试火焰机制默认 6 秒、每 2 秒 3 点；四种敌人都绑定 BuffComponent，卡牌上限 1，见 [火焰实现](../FIRE_BUFF.md)。
 
 ### 生成与难度
 
@@ -134,7 +134,7 @@ flowchart TD
 
 | 武器 | 解锁方式 | 当前关联升级 |
 | --- | --- | --- |
-| 剑 | 玩家场景默认自带 | `剑:攻速升级`、`剑:伤害升级` |
+| 剑 | 玩家场景默认自带 | `剑:攻速升级`、`剑:伤害升级`、`剑:火焰附魔`；解锁后有火焰伤害、持续时间、频率三条强化线 |
 | 斧头 | `axe.tres`，ID `斧头` | `斧头:伤害升级` |
 | 铁毡 | `anvil.tres`，ID `铁毡` | `铁毡:伤害升级`、`铁毡:数量升级` |
 | 巨剑 | `huge_sword.tres`，ID `巨剑` | 当前没有对应数值升级资源 |

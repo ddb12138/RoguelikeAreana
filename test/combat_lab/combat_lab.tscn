@@ -216,13 +216,12 @@ text = "启用（推荐调试）"
 
 [node name="SwordFireLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
 layout_mode = 2
-text = "剑的火焰附魔"
+text = "剑的火焰卡牌"
 
 [node name="SwordFireCheck" type="CheckButton" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
 unique_name_in_owner = true
 layout_mode = 2
-button_pressed = true
-text = "启用"
+text = "通过升级卡获得"
 
 [node name="IsolationLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
 unique_name_in_owner = true

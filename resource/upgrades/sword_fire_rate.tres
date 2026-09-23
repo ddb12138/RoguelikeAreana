@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_fire_rate"]
+
+[resource]
+script = ExtResource("1_fire_rate")
+id = "剑:火焰频率升级"
+max_quantity = 5
+name = "火焰：灼烧频率"
+description = "每级缩短 0.2 秒灼烧间隔"

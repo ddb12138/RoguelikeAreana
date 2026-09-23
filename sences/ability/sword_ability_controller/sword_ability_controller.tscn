@@ -1,14 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cmt2xi0xuqruu"]
+[gd_scene load_steps=3 format=3 uid="uid://cmt2xi0xuqruu"]
 
 [ext_resource type="Script" path="res://sences/ability/sword_ability_controller/sword_ability_controller.gd" id="1_fra4s"]
 [ext_resource type="PackedScene" uid="uid://cx435l75gxtf1" path="res://sences/ability/sword_ability/sword_ability.tscn" id="2_5dnlu"]
 
-[ext_resource type="Resource" path="res://resource/buffs/sword_fire.tres" id="3_fire"]
-
 [node name="SwordAbilityController" type="Node"]
 script = ExtResource("1_fra4s")
 MAX_RANGE = 150
-burn_config = ExtResource("3_fire")
 sword_ability = ExtResource("2_5dnlu")
 
 [node name="Timer" type="Timer" parent="."]

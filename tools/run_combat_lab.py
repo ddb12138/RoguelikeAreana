@@ -26,7 +26,6 @@ def main():
     parser.add_argument('--weapon', choices=['无', '剑', '斧头', '铁毡', '巨剑', '闪电'])
     parser.add_argument('--max-enemies', type=int, help='同屏怪物上限 1–100')
     parser.add_argument('--spawn-interval', type=float, help='补怪间隔 0.1–30 秒')
-    parser.add_argument('--no-fire', action='store_true', help='剑关闭火焰附魔')
     parser.add_argument('--vulnerable', action='store_true', help='恢复玩家接触伤害')
     parser.add_argument('--no-gui', action='store_true', help='跳过配置页并使用未指定项的默认值')
     parser.add_argument('--godot', default='/Applications/Godot.app/Contents/MacOS/Godot')
@@ -46,7 +45,6 @@ def main():
         args.weapon is not None,
         args.max_enemies is not None,
         args.spawn_interval is not None,
-        args.no_fire,
         args.vulnerable,
     ))
     direct_mode = explicit_lab_option or args.no_gui or args.headless or args.frames is not None
@@ -125,8 +123,6 @@ def main():
             '--lab-max-enemies=' + str(max_enemies),
             '--lab-spawn-interval=' + str(spawn_interval),
         ]
-        if args.no_fire:
-            cmd.append('--lab-no-fire')
         if args.vulnerable:
             cmd.append('--lab-vulnerable')
 

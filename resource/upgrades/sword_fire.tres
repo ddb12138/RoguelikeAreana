@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityUpgrade" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://resource/upgrades/ability_upgrade.gd" id="1_fire_upgrade"]
+
+[resource]
+script = ExtResource("1_fire_upgrade")
+id = "剑:火焰附魔"
+max_quantity = 1
+name = "火焰剑"
+description = "剑攻击命中敌人时附加灼烧效果，并解锁三条火焰强化路线"

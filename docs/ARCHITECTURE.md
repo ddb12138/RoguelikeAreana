@@ -119,7 +119,7 @@ flowchart TD
 - `HealthComponent.damage()` 正数扣血，负数治疗；死亡检查延迟执行，以一次性保护发出 `died` 后释放 `owner`。掉落和死亡特效依赖这个时序。
 - `VelocityComponent` 处理加速、追踪玩家和 `move_and_slide()`；玩家与多数敌人在 `_process()` 调用它。
 - 玩家永久 Buff 来自 `MetaProgression.get_meta_buff_upgrade_info()`，由 BuffManager 实例化。名称注册表仍仅 `buff_heal`；灼烧通过独立的 `add_burn()` 接口接入；治疗场景配置永久生效、15 秒触发间隔，首次触发时机由 BuffBase 的计时条件决定。
-- 剑默认引用 `resource/buffs/sword_fire.tres`，每次命中为存活敌人施加或刷新灼烧：默认 6 秒，每 2 秒 3 点，橙红飘字；四类敌人均已绑定 BuffComponent。刷新不重置下一跳，灼烧不发送物理命中信号，巫师半血状态由生命变化触发一次。实现与验证见 [FIRE_BUFF.md](FIRE_BUFF.md)。
+- 正式默认剑的 `burn_config` 为空，不施加火焰 Buff。选择 `剑:火焰附魔` 卡牌后注入 `resource/buffs/sword_fire.tres`，默认 6 秒、每 2 秒 3 点的灼烧；随后可分别升级灼烧伤害、持续时间和频率。四类敌人均已绑定 BuffComponent。实现与验证见 [FIRE_BUFF.md](FIRE_BUFF.md)。
 
 ### 生成与难度
 

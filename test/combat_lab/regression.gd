@@ -27,6 +27,7 @@ func run_checks() -> void:
 	expect(config_lab.weapon_option.item_count == 6, "武器选项完整")
 	expect(config_lab.max_enemies_spin.min_value == 1 and config_lab.max_enemies_spin.max_value == 100, "怪物上限约束正确")
 	expect(is_equal_approx(config_lab.spawn_interval_spin.min_value, 0.1) and is_equal_approx(config_lab.spawn_interval_spin.max_value, 30.0), "补怪间隔约束正确")
+	expect(config_lab.sword_fire_check.disabled, "火焰剑通过正式升级卡牌获得")
 	config_lab.select_option_text(config_lab.enemy_option, "蝙蝠")
 	config_lab.select_option_text(config_lab.weapon_option, "闪电")
 	config_lab.max_enemies_spin.value = 3
@@ -48,12 +49,11 @@ func run_checks() -> void:
 	await get_tree().process_frame
 	await get_tree().process_frame
 
-	var expected_steps = {"无": 0, "剑": 10, "斧头": 5, "铁毡": 10, "巨剑": 0, "闪电": 19}
+	var expected_steps = {"无": 0, "剑": 26, "斧头": 5, "铁毡": 10, "巨剑": 0, "闪电": 19}
 	for weapon in expected_steps:
 		var lab = LAB.instantiate()
 		lab.weapon_kind = weapon
 		lab.enemy_kind = "宝箱怪"
-		lab.sword_fire = false
 		lab.auto_start = true
 		add_child(lab)
 		var arena = lab.arena
@@ -62,7 +62,7 @@ func run_checks() -> void:
 		var spawner = arena.get_node("EnemyManager")
 		expect(player.get_node("Abilities").get_child_count() == (0 if weapon == "无" else 1), "应只安装所选武器：" + weapon)
 		if weapon == "剑":
-			expect(player.get_node("Abilities/SwordAbilityController").burn_config == null, "可关闭剑火焰")
+			expect(player.get_node("Abilities/SwordAbilityController").burn_config == null, "开局剑没有火焰 Buff")
 		expect(arena.get_node("ArenaTimeManager/Timer").is_stopped(), "实验场不自动计时结算")
 		for difficulty in [3, 6, 8, 60]:
 			spawner.on_arena_difficulty_increased(difficulty)
@@ -113,6 +113,9 @@ func run_checks() -> void:
 		match weapon:
 			"剑":
 				expect(is_equal_approx(controller.additional_damage_percent, 1.75) and is_equal_approx(controller.get_node("Timer").wait_time, 0.5), "剑满级数值")
+				expect(controller.burn_config != null and manager.current_upgrades.has("剑:火焰附魔"), "选择火焰卡牌后剑启用灼烧")
+				expect(manager.current_upgrades.has("剑:火焰伤害升级") and manager.current_upgrades.has("剑:火焰持续升级") and manager.current_upgrades.has("剑:火焰频率升级"), "火焰卡牌解锁三条强化路线")
+				expect(is_equal_approx(controller.burn_config.tick_damage, 8.0) and is_equal_approx(controller.burn_config.duration, 11.0) and is_equal_approx(controller.burn_config.tick_interval, 1.0), "火焰三条路线满级数值")
 			"斧头":
 				expect(is_equal_approx(controller.additional_damage_percent, 1.5), "斧头满级数值")
 			"铁毡":
@@ -150,7 +153,8 @@ func run_checks() -> void:
 	expect(enemy_manager.enemy_table.items.size() == 4, "正常难度仍加入四种怪")
 	expect(enemy_manager.number_to_swpan == 3, "正常难度仍增加生成数")
 	var upgrades = normal.get_node("UpgradeManager")
-	expect(upgrades.test_weapon_id.is_empty() and upgrades.upgrade_pool.items.size() == 7, "正式初始升级池保持七项")
+	expect(upgrades.test_weapon_id.is_empty() and upgrades.upgrade_pool.items.size() == 8, "正式初始升级池包含火焰剑卡牌")
+	expect(normal.get_node("Entities/Player/Abilities/SwordAbilityController").burn_config == null, "正式默认剑不带火焰 Buff")
 	upgrades.test_weapon_id = "闪电"
 	var initial = upgrades.pick_upgrades()
 	expect(initial.size() == 1 and initial[0].id == "闪电", "尚未解锁时只提供指定武器解锁")
