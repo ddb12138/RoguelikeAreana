@@ -64,7 +64,7 @@ SwordAbilityController.burn_config
 | 专项回归，实际 Forward+ | 同样 34 项检查、0 失败；退出有对象／1 个资源仍使用的诊断 | [regression-gpu.log](verification/fire-20260919/regression-gpu.log) |
 | 主菜单 180 帧 | 入口加载；退出有对象／1 个资源仍使用的诊断 | [menu.log](verification/fire-20260919/menu.log) |
 | 战斗 1200 帧 | 早期战斗、难度 1/2、拾取与死亡结算实际执行，无脚本错误；退出有对象／19 个资源仍使用的诊断 | [combat.log](verification/fire-20260919/combat.log) |
-| 独立视觉场景，Forward+ / Apple M4 | 检查四类敌人的火焰、挥砍和白色／橙红飘字；未见纹理缺失；退出仍有 1 个资源诊断 | [visual.log](verification/fire-20260919/visual.log)、下方截图 |
+| 独立视觉场景，Forward+ / Apple M4 | 检查四类敌人的火焰、挥砍和白色／橙红飘字；未见纹理缺失；退出仍有 1 个资源诊断 | [visual.log](verification/fire-20260919/visual.log)、[Word 附录 B](manuals/战斗实验室操作与实现手册.docx) |
 
 回归脚本是新增的独立场景 [`test/fire_buff_regression.tscn`](../test/fire_buff_regression.tscn)，未挂入主场景，也不是原来的实验节点 `test/Test.tscn`。覆盖首跳和到期边界、低帧率补跳、持续刷新、实例复用、跟随、暂停／恢复、小数伤害与自定义间隔、无效配置、敌人间状态独立、巫师状态轨道、灼烧击杀和一次掉落、普通攻击、治疗与剑特效生命周期。
 
@@ -77,13 +77,7 @@ SwordAbilityController.burn_config
 
 必须看到 `FIRE_REGRESSION: 34 checks, 0 failures`，并检查完整错误输出。帧数上限退出本身不是测试通过证据。移除 `--headless` 可在当前 Forward+ 渲染器下运行同一回归。
 
-![火焰挥砍与普通伤害数字](verification/fire-20260919/swing.png)
-
-![灼烧跳伤颜色](verification/fire-20260919/burn.png)
-
-![剑消失后仍持续燃烧](verification/fire-20260919/idle.png)
-
-截图来自隔离展示场景，直接伤害配置为 5；没有更改正式游戏的地图或 UI。
+三张历史截图已嵌入 [Word 手册附录 B](manuals/战斗实验室操作与实现手册.docx)。截图来自 2026-09-19 隔离展示场景，直接伤害配置为 5；没有更改正式游戏的地图或 UI，不代表本次重新验证。
 
 ## 验证边界
 

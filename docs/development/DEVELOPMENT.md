@@ -109,6 +109,8 @@ CHECK_PROJECT="/绝对路径/隔离副本"
 
 ## 定向实验场与武器学习（2026-09-20）
 
-新增 [战斗实验场](COMBAT_LAB.md) 和 `tools/run_combat_lab.py`：自动创建隔离副本／存档，固定怪物，开局仅装备指定武器，只提供该武器强化，按 U 升级。正式场景默认不启用测试覆盖。完整验证见 [专项记录](../verification/combat-lab-20260920/README.md)。
+新增 [战斗实验场](COMBAT_LAB.md) 和 `tools/run_combat_lab.py`：自动创建隔离副本／存档，固定怪物，开局仅装备指定武器，只提供该武器强化，按 U 升级。正式场景默认不启用测试覆盖。2026-09-20 版本验证见 [专项记录](../verification/combat-lab-20260920/README.md)。
+
+当前入口（2026-09-23 源码核对）：双击 `Combat Lab.command` 或无参数运行启动器，先显示图形配置页；提供实验参数或 `--no-gui` 可直接开始。操作图、核心 GDScript 讲解及历史截图见 [Word 手册](../manuals/战斗实验室操作与实现手册.docx)，AI 修改约定见上方实验场说明。旧验证记录不覆盖新增配置页，本次文档整理未重新运行游戏。
 
 武器说明、升级上限、公式与核心 GDScript 见 [武器手册](../weapons/README.md)。2026-09-19 的火焰实现与 34 项回归见 [火焰专题](../FIRE_BUFF.md)。

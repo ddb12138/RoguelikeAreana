@@ -1,107 +1,54 @@
-# 战斗实验场：只测试指定怪物和武器
+# 战斗实验室 AI 开发说明
 
-更新日期：2026-09-20。独立入口为 [combat_lab.tscn](../../test/combat_lab/combat_lab.tscn)，没有挂进正式主场景，正常 F6 主场景或 F5 主菜单均不启用测试覆盖。
+更新：2026-09-23。遵循根目录 [AGENTS.md](../../AGENTS.md)；人工操作、示意图、核心 GDScript 讲解见 [Word 手册](../manuals/战斗实验室操作与实现手册.docx)。本文只维护功能约定、源码入口和验证要求。
 
-## 最快的使用方式
+## 入口与模式
 
-在项目根目录终端执行，脚本会复制当前工作区、隔离存档、导入后打开游戏窗口：
+- macOS 双击根目录 [`Combat Lab.command`](../../Combat%20Lab.command)，或在项目根目录运行 `python3 tools/run_combat_lab.py`：创建隔离副本、独立存档，完成导入后打开图形配置页。
+- 提供任一实验参数（`--enemy`、`--weapon`、`--max-enemies`、`--spawn-interval`、`--no-fire`、`--vulnerable`），或 `--no-gui`、`--headless`、`--frames`：跳过配置页直接开始。只有 `--godot` 时仍打开配置页。
+- 独立场景 [`combat_lab.tscn`](../../test/combat_lab/combat_lab.tscn) 的 `auto_start` 默认 `false`；Inspector 值初始化表单。设为 `true` 或传 Godot `--lab-*` 参数可直启，参数覆盖相应导出值。
+- 正式主菜单、主场景不引用实验室。直接在原项目 F6 会加载 Autoload 并可能写真实存档；配置页的目录前缀提示不能阻止写入。隔离要求见 [开发基线](DEVELOPMENT.md#隔离运行)。
 
 ```sh
-# 只生成宝箱怪，不装备武器，观察唤醒、追逐、吸力和休眠。
+# 图形配置页
+python3 tools/run_combat_lab.py
+# 只观察宝箱怪 AI
 python3 tools/run_combat_lab.py --enemy 宝箱怪 --weapon 无
-
-# 只使用斧头，所有升级卡都属于斧头。
-python3 tools/run_combat_lab.py --enemy 普通敌人 --weapon 斧头
-
-# 火焰剑／普通剑对照。
-python3 tools/run_combat_lab.py --enemy 蝙蝠 --weapon 剑
-python3 tools/run_combat_lab.py --enemy 蝙蝠 --weapon 剑 --no-fire
-
-# 多目标闪电：最多 8 个敌人，每 0.5 秒补一个。
-python3 tools/run_combat_lab.py --enemy 蝙蝠 --weapon 闪电 --max-enemies 8 --spawn-interval 0.5
-
-# 要测试真实接触伤害和死亡，显式关闭免伤。
-python3 tools/run_combat_lab.py --enemy 宝箱怪 --weapon 无 --vulnerable
+# 直接测试闪电分支
+python3 tools/run_combat_lab.py --weapon 闪电 --max-enemies 8 --spawn-interval 0.5
 ```
 
-窗口中使用 WASD 移动、P 暂停；**按 U 或点击“升一级”**立即进入真实升级选卡，无需杀怪攒经验。选完后恢复战斗，直到该武器所有强化满级；不会切换到其他武器卡牌。
+## 功能约定
 
-| 可选项 | 值／默认 | 意义 |
-| --- | --- | --- |
-| `--enemy` | 普通敌人／巫师／蝙蝠／宝箱怪，默认宝箱怪 | 全程只生成这一类，第一次立即生成 |
-| `--weapon` | 无／剑／斧头／铁毡／巨剑／闪电，默认剑 | 开局只装备此武器；非剑会移除默认剑 |
-| `--max-enemies` | 1–100，默认 1 | 同屏怪物上限；死亡／移除后按间隔补充 |
-| `--spawn-interval` | 0.1–30 秒，默认 2 | 每次最多补一只，不随局内难度改变 |
-| `--no-fire` | 默认不传 | 剑关闭火焰，其他武器本来就无火焰 |
-| `--vulnerable` | 默认不传 | 默认免玩家接触伤害；传入后恢复受伤，不影响吸力和移动 |
-| `--godot` | 默认本机 Godot.app 路径 | 其他机器指定 Godot 4.3 可执行文件 |
-| `--headless --frames 600` | 默认无 | 自动冒烟用，固定 60 FPS、最多 600 帧；不是视觉验收 |
+| 项目 | 当前行为 |
+| --- | --- |
+| 配置 | 怪物：普通敌人／巫师／蝙蝠／宝箱怪；武器：无／剑／斧头／铁毡／巨剑／闪电 |
+| 默认 | 宝箱怪、剑、同屏 1、间隔 2 秒、免接触伤害、剑火焰；上限范围 1–100，间隔 0.1–30 秒 |
+| 生成 | 开始时生成一只；随后每个间隔最多补一只，达到同屏上限停止；难度不会扩池；停止局长计时 |
+| 武器 | 开局只保留所选武器；非剑先移除默认剑，再走正式解锁；火焰开关只影响剑 |
+| 升级 | U 或按钮补齐当前等级经验，沿用真实选卡和暂停；仅匹配武器 ID 或 `武器名:` 前缀；每轮最多两项、不重复、遵循资源上限 |
+| 边界 | 无武器／巨剑无后续强化；升满、暂停、配置阶段不能再升级；没有运行中返回配置页、无限升级或自动选卡 |
+| 免伤 | 只免玩家接触伤害，不关闭 AI、碰撞或宝箱怪吸力 |
 
-实验场停止局长 Timer 和难度推进，因此不会在 300 秒自动胜利；没有把怪物 AI 冻结。宝箱怪仍在距玩家 200 的通常生成半径外，需要走近其唤醒范围；巫师仍遵循原半血行为。
+升级 ID 以 `.tres` 为准，例如 `闪电:伤害`、`闪电:频率`；不可按卡面名称推测。各武器公式和上限见 [武器索引](../weapons/README.md)。
 
-## 满级和无强化项怎么处理
+## 源码与必须保留的顺序
 
-- 剑：伤害、攻速各 5 次，总计 10 次选择。
-- 斧头：伤害 5 次。
-- 铁毡：伤害、数量各 5 次，总计 10 次。
-- 闪电：距离 2、伤害 5、人数 5、数量 2、频率 5，总计 19 次。
-- 巨剑：当前只有解锁项，实验场已开局装备，后续无强化选项。
-- 无武器：只观察怪物，无升级选项。
+| 职责 | 入口与约束 |
+| --- | --- |
+| 隔离启动 | [`run_combat_lab.py`](../../tools/run_combat_lab.py)：Python 仅复制项目、改副本用户目录、导入和启动；保留临时副本与日志 |
+| 表单与状态 | [`combat_lab.gd`](../../test/combat_lab/combat_lab.gd)：`CONFIGURING → STARTING → RUNNING`，错误进入 `FAILED`；禁止重复创建战斗场景 |
+| 场景注入 | `start_experiment()` 在 `add_child(arena)` 前设置怪物、武器过滤和玩家免伤；所有节点 ready 后才 `apply_upgrade()` 安装非剑武器 |
+| 怪物过滤 | [`enemy_manager.gd`](../../sences/manager/enemy_manager.gd)：`test_enemy_scene == null` 保留正式生成；测试模式忽略难度扩池并限制数量 |
+| 升级过滤 | [`upgrade_manager.gd`](../../sences/manager/upgrade_manager.gd)：`test_weapon_id == ""` 保留正式池；每次抽卡筛选，包括动态加入的升级 |
+| 快速升级 | `request_level_up()` 调用 [`ExperienceManager`](../../sences/manager/experience_manager.gd)，不发送拾取事件，不额外增加局外货币 |
 
-没有候选时按钮禁用，后续经验升级也不创建空窗口。测试尊重现有上限，不无限堆叠升级。各公式和实现见 [武器学习手册](../weapons/README.md)。
+新增怪物／武器同步检查种类数组、`export_enum`、路径映射、启动器 `choices`、升级 ID 前缀和 [实验室回归](../../test/combat_lab/regression.gd)。保持正式模式测试字段默认关闭；学习代码节选放在 Word 第 5–6 章，修改时一并更新。
 
-## 在 Godot Inspector 中调整
+## 验证与维护
 
-推荐先用启动脚本生成隔离副本，从终端输出找到副本的 `project/`，在 Godot 打开**副本**，再打开 `test/combat_lab/combat_lab.tscn`，选中根节点 CombatLab：
-
-- `Enemy Kind` / `Weapon Kind`：怪物与武器。
-- `Max Enemies` / `Spawn Interval`：数量上限和补怪间隔。
-- `Invulnerable`：免接触伤害。
-- `Sword Fire`：剑是否附魔。
-
-F6 运行当前实验场。若直接在原项目 F6，Autoload 仍会写真实存档；实验场本身不能阻止 Autoload 在它加载前读写，所以自动验证必须使用隔离启动器。命令行参数会覆盖 Inspector 对应选项；单独 F6 没有命令行覆盖。
-
-调整敌人的伤害、唤醒距离或武器参数，仍修改原有资源／场景；实验场负责缩小测试范围，不复制一份战斗逻辑。改原工作区后重新运行启动器，才会把最新修改带进新副本。
-
-## 核心实现与学习点
-
-[combat_lab.gd](../../test/combat_lab/combat_lab.gd) 在主场景入树**之前**注入测试参数：
-
-```gdscript
-arena = MAIN_SCENE.instantiate()
-var enemy_manager = arena.get_node("EnemyManager")
-enemy_manager.test_enemy_scene = load(ENEMY_PATHS[enemy_kind])
-enemy_manager.test_max_enemies = max_enemies
-enemy_manager.test_spawn_interval = spawn_interval
-upgrade_manager = arena.get_node("UpgradeManager")
-upgrade_manager.test_weapon_id = weapon_kind
-```
-
-因为子节点 `_ready()` 要根据参数初始化，不能等 `add_child(arena)` 之后才改生成池。玩家准备好后再调用正式 `apply_upgrade()` 安装武器，这时它已订阅全局升级信号。
-
-[EnemyManager](../../sences/manager/enemy_manager.gd) 的可选 `test_enemy_scene` 默认为 null；设置时只把指定怪放入池，并在难度事件中提前返回。不只是将开局权重设为 0，因此第 15／30／40 秒不会又加入别的怪。
-
-[UpgradeManager](../../sences/manager/upgrade_manager.gd) 每次抽卡时按稳定 ID 筛选，默认空字符串允许全部：
-
-```gdscript
-if test_weapon_id.is_empty() or upgrade.id == test_weapon_id or upgrade.id.begins_with(test_weapon_id + ":"):
-	candidates.add_item(upgrade, entry["weight"])
-```
-
-因此“斧头”能匹配解锁与“斧头:伤害升级”，但不匹配玩家移速。解锁后的新强化同样被筛选；最多两张且不重复。
-
-[一键升级](../../test/combat_lab/combat_lab.gd) 直接给 ExperienceManager 补到本级目标值，经过真实 `level_up` 信号和卡牌 UI；没有发经验拾取事件，因此这次调试升级不额外发局外货币。正常拾取仍按游戏规则执行，并写入**隔离存档**。
-
-[启动脚本](../../tools/run_combat_lab.py) 不改原 `project.godot`：每次创建新的临时副本，并替换副本的 `config/custom_user_dir_name`。原始 `2DBlood` 不受影响。保留副本、冷／热导入日志和 run.log 供复查；清理时仅删除该次副本和 `Codex-blood-combat-lab-*` 对应专用用户目录。
-
-## 验证
-
-专项回归场景：[regression.tscn](../../test/combat_lab/regression.tscn)。准备隔离副本并导入后运行：
-
-```sh
-"$GODOT_BIN" --headless --path "$CHECK_PROJECT" --fixed-fps 60 --quit-after 1200 res://test/combat_lab/regression.tscn
-```
-
-覆盖所有武器单独安装、每条升级分支与上限、实际满级属性、卡牌暂停和恢复、无候选清理、指定怪物生成与补充、数量上限、难度隔离、免伤切换以及正常模式默认值。验证结果和实际截图见 [验证记录](../verification/combat-lab-20260920/README.md)。
-
-实验场是交互调试入口，不等于自动测试通过；自动退出码 0 也不代表没有错误。闪电原有异步引用／暂停风险、完整通关、平台导出和高怪物数量性能需分别验证，详见 [闪电页](../weapons/THUNDER.md)。
+- 行为变更按 [开发基线](DEVELOPMENT.md) 在隔离副本运行导入及 `test/combat_lab/regression.tscn`，检查失败数和完整错误输出；不能以帧数退出当作通过。
+- 表单变更还需实机检查：默认不创建战斗场景、武器与火焰控件联动、单次启动、直接模式、错误配置、隔离提示及窗口布局。
+- [2026-09-20 验证记录](../verification/combat-lab-20260920/README.md) 为历史证据，不能证明后来新增配置页已通过；截图收录 Word 附录 A，火焰历史画面在附录 B。
+- 本次为文档整理：核对源码、路径和 Word 排版，未重新运行 Godot。长时间性能、完整通关、移动端／Web 未验证；闪电已有风险见 [THUNDER.md](../weapons/THUNDER.md)。
+- 入口、参数或行为变化时，同步本文、Word 手册、[总导航](../README.md)；规则由 [AGENTS.md](../../AGENTS.md) 统一维护。Markdown 不嵌截图，历史日志保留原日期与边界。

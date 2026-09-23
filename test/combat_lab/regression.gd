@@ -17,12 +17,44 @@ func _ready() -> void:
 	get_tree().quit(1 if failures > 0 else 0)
 
 func run_checks() -> void:
+	# 默认入口必须停在配置页，直到用户明确点击开始。
+	var config_lab = LAB.instantiate()
+	add_child(config_lab)
+	expect(config_lab.state == config_lab.LabState.CONFIGURING, "默认入口显示配置页")
+	expect(config_lab.arena == null, "点击开始前不实例化正式战斗")
+	expect(config_lab.configuration_layer.visible, "配置页保持可见")
+	expect(config_lab.enemy_option.item_count == 4, "怪物选项完整")
+	expect(config_lab.weapon_option.item_count == 6, "武器选项完整")
+	expect(config_lab.max_enemies_spin.min_value == 1 and config_lab.max_enemies_spin.max_value == 100, "怪物上限约束正确")
+	expect(is_equal_approx(config_lab.spawn_interval_spin.min_value, 0.1) and is_equal_approx(config_lab.spawn_interval_spin.max_value, 30.0), "补怪间隔约束正确")
+	config_lab.select_option_text(config_lab.enemy_option, "蝙蝠")
+	config_lab.select_option_text(config_lab.weapon_option, "闪电")
+	config_lab.max_enemies_spin.value = 3
+	config_lab.spawn_interval_spin.value = 1.5
+	config_lab.invulnerable_check.button_pressed = false
+	config_lab.start_from_form()
+	expect(config_lab.state == config_lab.LabState.RUNNING and config_lab.arena != null, "开始按钮进入战斗")
+	expect(not config_lab.configuration_layer.visible, "战斗开始后隐藏配置页")
+	var configured_arena = config_lab.arena
+	var configured_spawner = configured_arena.get_node("EnemyManager")
+	var configured_player = configured_arena.get_node("Entities/Player")
+	expect(config_lab.enemy_kind == "蝙蝠" and configured_spawner.test_max_enemies == 3, "GUI 怪物配置写入正式管理器")
+	expect(is_equal_approx(configured_spawner.timer.wait_time, 1.5), "GUI 补怪间隔写入正式计时器")
+	expect(not configured_player.test_invulnerable, "GUI 受伤设置写入玩家")
+	expect(configured_player.get_node("Abilities").get_child_count() == 1 and configured_player.get_node("Abilities").get_child(0).name == "ThunderAbilityController", "GUI 武器通过正式流程安装")
+	config_lab.start_experiment()
+	expect(config_lab.arena == configured_arena, "重复开始不会创建第二个战斗场")
+	config_lab.queue_free()
+	await get_tree().process_frame
+	await get_tree().process_frame
+
 	var expected_steps = {"无": 0, "剑": 10, "斧头": 5, "铁毡": 10, "巨剑": 0, "闪电": 19}
 	for weapon in expected_steps:
 		var lab = LAB.instantiate()
 		lab.weapon_kind = weapon
 		lab.enemy_kind = "宝箱怪"
 		lab.sword_fire = false
+		lab.auto_start = true
 		add_child(lab)
 		var arena = lab.arena
 		var player = arena.get_node("Entities/Player")
@@ -96,6 +128,7 @@ func run_checks() -> void:
 		lab.weapon_kind = "无"
 		lab.max_enemies = 3
 		lab.spawn_interval = 1.5
+		lab.auto_start = true
 		add_child(lab)
 		var spawner = lab.arena.get_node("EnemyManager")
 		for i in range(5):

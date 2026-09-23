@@ -15,7 +15,7 @@
 - 战斗场景：`sences/main/main.tscn`；玩家：`sences/game_object/player/`。
 - 局内管理：`sences/manager/`；通用组件：`sences/component/`。
 - 武器实体与控制器：`sences/ability/`；升级资源：`resource/upgrades/`；学习手册：`docs/weapons/README.md`。
-- 定向测试：`docs/development/COMBAT_LAB.md`；隔离启动器 `tools/run_combat_lab.py`；独立实验场 `test/combat_lab/combat_lab.tscn`。
+- 定向测试 AI 说明：[COMBAT_LAB.md](docs/development/COMBAT_LAB.md)；人工操作与实现手册：[Word](docs/manuals/战斗实验室操作与实现手册.docx)。双击 `Combat Lab.command` 或无参数运行 `tools/run_combat_lab.py` 打开隔离配置页；独立实验场 `test/combat_lab/combat_lab.tscn`。
 - 宝箱怪的玩法、状态机和吸力约定：`docs/monsters/MIMIC_CHEST.md`。
 - 事件总线：`sences/autoload/game_events.gd`；局外成长与存档：`sences/autoload/meta_progression.gd`。
 
@@ -46,6 +46,14 @@
 ## 知识维护
 
 结构、事件链路、存档结构或运行方法变化时，同步更新相关文档。已知问题见 `docs/development/DEVELOPMENT.md`，修复后更新状态；不要将现有缺陷当作新功能必须遵循的设计。
+
+### 文档分工（必须同步）
+
+- 总入口为 [docs/README.md](docs/README.md)。Markdown 用于 AI 开发，尽量简要记录功能、配置／接口约定、源码入口、验证边界；不嵌入截图，不重复完整操作教程。
+- 面向人的操作教程、详细实现讲解和示意图集中到 `docs/manuals/` 的 Word 手册。保留必要的 GDScript 核心代码及来源，不能因精简 Markdown 丢失学习说明。
+- 修改实验室入口、表单、参数、状态流或升级筛选时，同时更新 `docs/development/COMBAT_LAB.md` 和对应 Word 章节；其他已有人工手册同样按受影响范围同步。源码与手册节选保持一致。
+- 图片直接嵌入 Word；确认嵌入完整、无其他引用后，才清理重复的独立文档 PNG。此规则不适用于 `asserts/` 游戏素材。历史日志保留日期和验证范围，旧截图不得充当新功能验收证据。
+- 纯文档变更检查路径、来源、差异；Word 需渲染并逐页检查，不因此运行游戏或改真实存档。
 
 ### 武器说明与学习文档（必须同步）
 

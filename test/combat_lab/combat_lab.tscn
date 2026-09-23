@@ -1,6 +1,239 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=11 format=3]
 
 [ext_resource type="Script" path="res://test/combat_lab/combat_lab.gd" id="1_lab"]
+[ext_resource type="FontFile" path="res://resource/theme/BasicChineseLine.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBackdrop"]
+bg_color = Color(0.055, 0.045, 0.075, 1)
+
+[sub_resource type="StyleBoxFlat" id="StylePanel"]
+content_margin_left = 22.0
+content_margin_top = 18.0
+content_margin_right = 22.0
+content_margin_bottom = 18.0
+bg_color = Color(0.137, 0.094, 0.145, 0.98)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.486, 0.302, 0.294, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleField"]
+content_margin_left = 8.0
+content_margin_top = 5.0
+content_margin_right = 8.0
+content_margin_bottom = 5.0
+bg_color = Color(0.09, 0.063, 0.102, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.357, 0.247, 0.345, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleButtonNormal"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.933, 0.514, 0.216, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleButtonHover"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(1, 0.659, 0.298, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleButtonPressed"]
+content_margin_top = 7.0
+content_margin_bottom = 7.0
+bg_color = Color(0.741, 0.353, 0.157, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleButtonFocus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(1, 0.843, 0.514, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="Theme" id="LabTheme"]
+default_font = ExtResource("2_font")
+default_font_size = 15
+Button/colors/font_color = Color(0.16, 0.09, 0.08, 1)
+Button/colors/font_focus_color = Color(0.16, 0.09, 0.08, 1)
+Button/colors/font_hover_color = Color(0.16, 0.09, 0.08, 1)
+Button/colors/font_pressed_color = Color(0.16, 0.09, 0.08, 1)
+Button/styles/focus = SubResource("StyleButtonFocus")
+Button/styles/hover = SubResource("StyleButtonHover")
+Button/styles/normal = SubResource("StyleButtonNormal")
+Button/styles/pressed = SubResource("StyleButtonPressed")
+CheckButton/colors/font_color = Color(0.94, 0.88, 0.78, 1)
+Label/colors/font_color = Color(0.94, 0.88, 0.78, 1)
+LineEdit/colors/font_color = Color(0.94, 0.88, 0.78, 1)
+LineEdit/styles/normal = SubResource("StyleField")
+OptionButton/colors/font_color = Color(0.94, 0.88, 0.78, 1)
+OptionButton/colors/font_focus_color = Color(0.94, 0.88, 0.78, 1)
+OptionButton/colors/font_hover_color = Color(1, 0.78, 0.45, 1)
+OptionButton/colors/font_pressed_color = Color(1, 0.78, 0.45, 1)
+OptionButton/styles/focus = SubResource("StyleButtonFocus")
+OptionButton/styles/hover = SubResource("StyleField")
+OptionButton/styles/normal = SubResource("StyleField")
+OptionButton/styles/pressed = SubResource("StyleField")
+PanelContainer/styles/panel = SubResource("StylePanel")
+SpinBox/colors/font_color = Color(0.94, 0.88, 0.78, 1)
 
 [node name="CombatLab" type="Node"]
 script = ExtResource("1_lab")
+
+[node name="ConfigurationLayer" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Backdrop" type="Panel" parent="ConfigurationLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBackdrop")
+
+[node name="CenterContainer" type="CenterContainer" parent="ConfigurationLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ConfigurationLayer/CenterContainer"]
+custom_minimum_size = Vector2(520, 330)
+layout_mode = 2
+theme = SubResource("LabTheme")
+
+[node name="VBox" type="VBoxContainer" parent="ConfigurationLayer/CenterContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 9
+
+[node name="Title" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.69, 0.35, 1)
+theme_override_font_sizes/font_size = 27
+text = "战斗实验室"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.72, 0.66, 0.62, 1)
+theme_override_font_sizes/font_size = 12
+text = "先配置本轮实验。点击开始后才会载入战斗与生成怪物。"
+horizontal_alignment = 1
+
+[node name="Divider" type="HSeparator" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+layout_mode = 2
+
+[node name="Grid" type="GridContainer" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 7
+columns = 2
+
+[node name="EnemyLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+layout_mode = 2
+text = "怪物类型"
+
+[node name="EnemyOption" type="OptionButton" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(292, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WeaponLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+layout_mode = 2
+text = "开局武器"
+
+[node name="WeaponOption" type="OptionButton" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(292, 30)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MaxEnemiesLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+layout_mode = 2
+text = "同屏怪物上限"
+
+[node name="MaxEnemiesSpin" type="SpinBox" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(292, 30)
+layout_mode = 2
+min_value = 1.0
+max_value = 100.0
+value = 1.0
+
+[node name="SpawnIntervalLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+layout_mode = 2
+text = "补怪间隔（秒）"
+
+[node name="SpawnIntervalSpin" type="SpinBox" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(292, 30)
+layout_mode = 2
+min_value = 0.1
+max_value = 30.0
+step = 0.1
+value = 2.0
+allow_greater = false
+allow_lesser = false
+
+[node name="InvulnerableLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+layout_mode = 2
+text = "玩家接触免伤"
+
+[node name="InvulnerableCheck" type="CheckButton" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用（推荐调试）"
+
+[node name="SwordFireLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+layout_mode = 2
+text = "剑的火焰附魔"
+
+[node name="SwordFireCheck" type="CheckButton" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "启用"
+
+[node name="IsolationLabel" type="Label" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+text = "正在检查隔离存档……"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 39)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "开始实验"

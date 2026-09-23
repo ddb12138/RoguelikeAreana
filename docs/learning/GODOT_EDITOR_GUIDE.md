@@ -59,7 +59,7 @@
 4. 右上角“播放项目”使用 Project Settings 的 Main Scene；“播放当前场景”只运行当前 `.tscn`。单独运行组件场景缺少 Autoload 以外的父场景依赖时，报错不等于完整项目入口也坏了。
 5. 第一次只查看，不保存 Godot 自动建议的批量资源升级。项目以 4.3 为基准；较新引擎重存 `.tscn/.tres` 可能产生大量与学习无关的差异。
 
-**截图核对点 A：Project Settings。** 截图时保留窗口标题、左侧设置树、搜索框和右侧当前值。至少记录 Main Scene、Display/Window、Input Map、Autoload、2D Physics Layer Names 五页。图片文件若以后加入仓库，建议放在 `docs/images/editor/`，文件名使用 `project-main-scene.png`、`input-map.png` 等稳定用途名，不要用“截图1”。
+**编辑器核对点 A：Project Settings。** 核对 Main Scene、Display/Window、Input Map、Autoload、2D Physics Layer Names 五页。后续需要图文教程时，将截图嵌入 `docs/manuals/` 对应 Word，保留窗口标题、设置树、搜索框和当前值；Markdown 只记录配置事实和手册入口，规则见 [AGENTS.md](../../AGENTS.md)。
 
 <a id="scene-workflow"></a>
 ## 3. 创建、实例化、连接与运行时检查
