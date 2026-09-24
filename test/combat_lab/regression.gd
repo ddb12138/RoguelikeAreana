@@ -33,6 +33,29 @@ func run_checks() -> void:
 	config_lab.max_enemies_spin.value = 3
 	config_lab.spawn_interval_spin.value = 1.5
 	config_lab.invulnerable_check.button_pressed = false
+	var music_paused_before: bool = MusicPlayer.stream_paused
+	var timer_paused_before: bool = MusicPlayer.get_node("Timer").paused
+	config_lab.get_node("%HealPreviewButton").pressed.emit()
+	expect(config_lab.state == config_lab.LabState.PREVIEW, "配置页按钮进入回血预览")
+	expect(config_lab.arena == null and not config_lab.configuration_layer.visible, "预览不生成战斗并隐藏配置页")
+	expect(MusicPlayer.stream_paused and MusicPlayer.get_node("Timer").paused, "预览暂停音乐和重播计时")
+	var preview = config_lab.heal_preview
+	preview.trigger_heal()
+	expect(preview.health_component.current_health == 5 and preview.trigger_count == 1, "预览实际回血一次")
+	config_lab.start_heal_preview()
+	config_lab.start_experiment()
+	expect(config_lab.heal_preview == preview and config_lab.arena == null, "预览期间防止重复启动或混入战斗")
+	preview.request_exit()
+	await get_tree().process_frame
+	await get_tree().process_frame
+	expect(config_lab.state == config_lab.LabState.CONFIGURING and config_lab.heal_preview == null, "预览返回配置页并释放")
+	expect(config_lab.configuration_layer.visible, "返回后配置页可见")
+	expect(MusicPlayer.stream_paused == music_paused_before and MusicPlayer.get_node("Timer").paused == timer_paused_before, "返回恢复原音乐状态")
+	expect(config_lab.weapon_option.get_item_text(config_lab.weapon_option.selected) == "闪电" and config_lab.max_enemies_spin.value == 3, "预览往返保留表单")
+	config_lab.start_heal_preview()
+	expect(config_lab.heal_preview.health_component.current_health == 4 and config_lab.heal_preview.trigger_count == 0, "重新进入从初始生命开始")
+	config_lab.close_heal_preview()
+	await get_tree().process_frame
 	config_lab.start_from_form()
 	expect(config_lab.state == config_lab.LabState.RUNNING and config_lab.arena != null, "开始按钮进入战斗")
 	expect(not config_lab.configuration_layer.visible, "战斗开始后隐藏配置页")

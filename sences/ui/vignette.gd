@@ -5,6 +5,7 @@ extends CanvasLayer
 func _ready() -> void:
 	GameEvents.player_damaged.connect(on_player_damaged)
 	GameEvents.player_heal.connect(on_player_heal)
+	$AnimationPlayer.play("RESET")
 
 
 func on_player_damaged():

@@ -145,7 +145,7 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.72, 0.66, 0.62, 1)
 theme_override_font_sizes/font_size = 12
-text = "先配置本轮实验。点击开始后才会载入战斗与生成怪物。"
+text = "配置战斗实验，或单独预览回血效果。"
 horizontal_alignment = 1
 
 [node name="Divider" type="HSeparator" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
@@ -230,9 +230,22 @@ theme_override_font_sizes/font_size = 12
 text = "正在检查隔离存档……"
 horizontal_alignment = 1
 
-[node name="StartButton" type="Button" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+[node name="Actions" type="HBoxContainer" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="StartButton" type="Button" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Actions"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 39)
 layout_mode = 2
+size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 18
 text = "开始实验"
+
+[node name="HealPreviewButton" type="Button" parent="ConfigurationLayer/CenterContainer/PanelContainer/VBox/Actions"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 39)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 18
+text = "回血效果预览"

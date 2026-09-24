@@ -9,6 +9,7 @@ Markdown 作为 AI 开发说明：先读根目录 [AGENTS.md](../AGENTS.md)，�
 | [architecture/ARCHITECTURE.md](architecture/ARCHITECTURE.md) | 项目结构、职责和数据流；首次进入必读 |
 | [development/DEVELOPMENT.md](development/DEVELOPMENT.md) | 环境、隔离运行、验证和已知问题；执行前必读 |
 | [development/COMBAT_LAB.md](development/COMBAT_LAB.md) | 实验室模式、配置、源码约定和定向验证 |
+| [development/HEAL_PREVIEW.md](development/HEAL_PREVIEW.md) | 实验室内回血屏闪预览入口、事件链与验证 |
 | [weapons/README.md](weapons/README.md) | 五种武器、强化 ID／公式、核心代码；[公共实现](weapons/IMPLEMENTATION.md)、[变种记录](weapons/VARIANTS.md) |
 | [monsters/MIMIC_CHEST.md](monsters/MIMIC_CHEST.md) | 宝箱怪玩法与状态机；[追逐修复记录](bugs/MIMIC_CHASE_FIX.md) |
 | [FIRE_BUFF.md](FIRE_BUFF.md) | 火焰附魔、灼烧规则和验证证据 |

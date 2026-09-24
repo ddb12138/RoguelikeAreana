@@ -1,6 +1,7 @@
 extends Node
 
 const MAIN_SCENE = preload("res://sences/main/main.tscn")
+const HEAL_PREVIEW_SCENE = preload("res://test/heal_vignette_preview.tscn")
 const CHINESE_FONT = preload("res://resource/theme/BasicChineseLine.ttf")
 const ENEMY_KINDS: Array[String] = ["普通敌人", "巫师", "蝙蝠", "宝箱怪"]
 const WEAPON_KINDS: Array[String] = ["无", "剑", "斧头", "铁毡", "巨剑", "闪电"]
@@ -17,7 +18,7 @@ const WEAPON_PATHS = {
 	"闪电": "res://resource/upgrades/thunder.tres",
 }
 
-enum LabState { CONFIGURING, STARTING, RUNNING, FAILED }
+enum LabState { CONFIGURING, STARTING, RUNNING, FAILED, PREVIEW }
 
 @export_enum("普通敌人", "巫师", "蝙蝠", "宝箱怪") var enemy_kind: String = "宝箱怪"
 @export_enum("无", "剑", "斧头", "铁毡", "巨剑", "闪电") var weapon_kind: String = "剑"
@@ -43,6 +44,9 @@ var upgrade_manager: Node
 var experience_manager: Node
 var status_label: Label
 var level_button: Button
+var heal_preview: Node
+var music_was_paused: bool
+var music_timer_was_paused: bool
 
 func _ready() -> void:
 	setup_configuration_form()
@@ -63,6 +67,7 @@ func setup_configuration_form() -> void:
 	for kind in WEAPON_KINDS:
 		weapon_option.add_item(kind)
 	start_button.pressed.connect(start_from_form)
+	%HealPreviewButton.pressed.connect(start_heal_preview)
 	weapon_option.item_selected.connect(on_weapon_selected)
 	write_configuration_to_form()
 	var user_dir_name = str(ProjectSettings.get_setting("application/config/custom_user_dir_name", ""))
@@ -130,7 +135,7 @@ func start_from_form() -> void:
 	start_experiment()
 
 func start_experiment() -> void:
-	if state == LabState.STARTING or state == LabState.RUNNING:
+	if state != LabState.CONFIGURING:
 		return
 	if not configuration_is_valid():
 		fail_startup("战斗实验室：配置无效，无法开始实验。")
@@ -164,6 +169,37 @@ func start_experiment() -> void:
 	enemy_manager.on_timer_timeout()
 	configuration_layer.hide()
 	state = LabState.RUNNING
+
+func start_heal_preview() -> void:
+	if state != LabState.CONFIGURING:
+		return
+	state = LabState.PREVIEW
+	configuration_layer.hide()
+	music_was_paused = MusicPlayer.stream_paused
+	music_timer_was_paused = MusicPlayer.get_node("Timer").paused
+	MusicPlayer.stream_paused = true
+	MusicPlayer.get_node("Timer").paused = true
+	heal_preview = HEAL_PREVIEW_SCENE.instantiate()
+	heal_preview.exit_requested.connect(close_heal_preview)
+	add_child(heal_preview)
+
+func close_heal_preview() -> void:
+	if state != LabState.PREVIEW:
+		return
+	# 先解除事件监听并移出场景树，再显示配置页。
+	remove_child(heal_preview)
+	heal_preview.queue_free()
+	heal_preview = null
+	restore_preview_music()
+	show_configuration()
+
+func restore_preview_music() -> void:
+	MusicPlayer.stream_paused = music_was_paused
+	MusicPlayer.get_node("Timer").paused = music_timer_was_paused
+
+func _exit_tree() -> void:
+	if state == LabState.PREVIEW:
+		restore_preview_music()
 
 func fail_startup(message: String) -> void:
 	state = LabState.FAILED

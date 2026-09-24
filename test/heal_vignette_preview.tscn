@@ -1,0 +1,93 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="Script" path="res://test/heal_vignette_preview.gd" id="1_preview"]
+[ext_resource type="Script" path="res://sences/component/health_component.gd" id="2_health"]
+[ext_resource type="PackedScene" uid="uid://dvfsq4r8lhi08" path="res://sences/ui/vignette.tscn" id="3_vignette"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.0588235, 0.0705882, 0.101961, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.211765, 0.47451, 0.301961, 0.85)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="PreviewTheme"]
+default_font_size = 16
+
+[node name="HealVignettePreview" type="Node"]
+script = ExtResource("1_preview")
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("2_health")
+max_health = 10.0
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = 0
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.24, 0.26, 0.28, 1)
+
+[node name="Vignette" parent="." instance=ExtResource("3_vignette")]
+
+[node name="PreviewUI" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="Panel" type="PanelContainer" parent="PreviewUI"]
+offset_left = 100.0
+offset_top = 18.0
+offset_right = 540.0
+offset_bottom = 342.0
+theme = SubResource("PreviewTheme")
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="PreviewUI/Panel"]
+theme_override_constants/margin_left = 24
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 24
+theme_override_constants/margin_bottom = 20
+
+[node name="VBox" type="VBoxContainer" parent="PreviewUI/Panel/Margin"]
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="PreviewUI/Panel/Margin/VBox"]
+text = "回血屏闪预览"
+horizontal_alignment = 1
+
+[node name="Hint" type="Label" parent="PreviewUI/Panel/Margin/VBox"]
+text = "H / Enter / 空格：立即回血\nTab：隐藏或显示面板"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="PreviewUI/Panel/Margin/VBox"]
+text = "模拟生命值：4 / 10"
+horizontal_alignment = 1
+
+[node name="HealthBar" type="ProgressBar" parent="PreviewUI/Panel/Margin/VBox"]
+value = 40.0
+show_percentage = false
+custom_minimum_size = Vector2(0, 18)
+
+[node name="HealButton" type="Button" parent="PreviewUI/Panel/Margin/VBox"]
+text = "立即回血"
+
+[node name="TriggerLabel" type="Label" parent="PreviewUI/Panel/Margin/VBox"]
+text = "已触发 0 次　（每次恢复 1 点）"
+horizontal_alignment = 1
+
+[node name="Footer" type="Label" parent="PreviewUI/Panel/Margin/VBox"]
+text = "满血后再次触发会从 4 点重新测试"
+horizontal_alignment = 1
+modulate = Color(0.7, 0.75, 0.8, 1)
+
+[node name="BackButton" type="Button" parent="PreviewUI/Panel/Margin/VBox"]
+text = "返回实验室（Esc）"
